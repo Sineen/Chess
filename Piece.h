@@ -29,7 +29,8 @@ public:
     piece_type type;
     piece_color color;
     piece_color enemyColor;
-    Square square;
+    Square& square;
+    Board& board;
     bool hasMoved;
     int letter, number;  // board locations of piece be filed with the original spot
 
@@ -57,13 +58,13 @@ private:
      * @brief returns the squares on diagonals from piece.
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
      */
-    set<Square> _getDiag(Board& board){}
+    set<Square> _getDiag(){}
 
     /**
      * @brief returns the squares on Rows from piece.
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
      */
-    set<Square> _getRows(Board board);
+    set<Square> _getRows();
 
     /**
  * @brief returns the squares on Col from piece.
@@ -92,6 +93,7 @@ private:
     set<Square> _getQueen(Board board);
 
 
+    int addAndCheckStop(set<Square> &squares, int i, int j);
 };
 
 

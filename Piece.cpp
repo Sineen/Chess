@@ -9,7 +9,7 @@ set<Square> Piece::_getPawns(Board board)
     return set<Square>();
 }
 
-Piece::Piece(piece_type type, piece_color color, Square square)
+Piece::Piece(piece_type type, piece_color color, Square& square)
 {
     this->type=type;
     this->color=color;
@@ -28,44 +28,58 @@ set<Square> Piece::ReturnSquaresInRange()
     return set<Square>();
 }
 
-set<Square> Piece::_getDiag(Board& board)
+set<Square> Piece::_getDiag()
 {
     set<Square> squares = set<Square>();
 
     // do NE
-
-    for (int i = number, j = letter; i<7, j<7; ++i, ++j)
-    {
-        if (board.squares[i][j].isEmpty){ squares.emplace(board.squares[i][j]); }
-        else if (board.squares[i][j].getPiece().color != color ){
-            squares.emplace(board.squares[i][j]);
-            break;
-        }
-        else // this is a friendly piece
-        {
-            break;
-        }
+    for (int i = number, j = letter; i<8, j<8; ++i, ++j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SE
-
-    for (int i = i = number, j = letter; i<7, j<7; ++i, ++j)
-    {
-        if (board.squares[i][j].isEmpty){ squares.emplace(board.squares[i][j]); }
-        else if (board.squares[i][j].getPiece().color != color ){
-            squares.emplace(board.squares[i][j]);
-            break;
-        }
-        else // this is a friendly piece
-        {
-            break;
-        }
+    for (int i = number, j = letter; i>=0, j<8; --i, ++j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
     }
+
+    // do SW
+    for (int i = number, j = letter; i>=0, j>=0; --i, --j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    // do NW
+    for (int i = number, j = letter; i<8, j>=0; ++i, --j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    return squares;
 }
 
-set<Square> Piece::_getRows(Board board)
+set<Square> Piece::_getRows()
 {
-    return set<Square>();
+    set<Square> squares = set<Square>();
+
+    // do N
+    for (int i = number, j = letter; i<8; ++i){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    // do S
+    for (int i = number, j = letter; i>=0; --i){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    // do E
+    for (int i = number, j = letter; j<8; ++j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    // do W
+    for (int i = number, j = letter; j>=0; --j){
+        if (addAndCheckStop(squares, i, j) == 1){break;}
+    }
+
+    return squares;
 }
 
 set<Square> Piece::_getColumes(Board board)
@@ -85,5 +99,21 @@ set<Square> Piece::_getKing(Board board)
 
 set<Square> Piece::_getQueen(Board board)
 {
-    return set<Square>();
+    set<Square> squares = set<Square>();
+    squares.insert(_getDiag())
+}
+
+int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
+    if (board.squares[i][j].isEmpty){
+        squares.insert(board.squares[i][j]);
+        return 0;
+    }
+    else if (board.squares[i][j].getPiece().color != color ){
+        squares.insert(board.squares[i][j]);
+        return 1;
+    }
+    else // this is a friendly piece
+    {
+        return 1;
+    }
 }
