@@ -106,7 +106,7 @@ set<Square> Piece::_getPawns()
         // if NW diagonal exists and is occupied by enemy, add it
         if(j>0){
             if(!board.squares[i+1][j-1].isEmpty()){
-                if(!board.squares[i+1][j-1]->getPiece()->color != color){
+                if(!board.squares[i+1][j-1].getPiece()->color != color){
                     squares.insert(board.squares[i+1][j-1]);
                 }
 
@@ -121,14 +121,25 @@ set<Square> Piece::_getPawns()
 set<Square> Piece::_getKnights(Board board)
 {
     set<Square> squares = set<Square>();
-    for (int i = -1; i <=1 ; ++i)
+
+    // i change 2, j change 1
+    for (int i = -2; i <=2 ; i+=4)
     {
-        for (int j = -1; j <=1 ; ++j)
+        for (int j = -1; j <=1 ; j+=2)
         {
-            if(!(i==0 && j==0))
-                checkAndAddIj(squares, number+i, letter+j);
+            checkAndAddIj(squares, number+i, letter+j);
         }
     }
+    // i change 1, j change 2
+    for (int i = -1; i <=1 ; i+=2)
+    {
+        for (int j = -2; j <=2 ; j+=4)
+        {
+            checkAndAddIj(squares, number+i, letter+j);
+        }
+    }
+
+    return squares;
 }
 
 set<Square> Piece::_getKing(Board board)
