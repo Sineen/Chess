@@ -14,6 +14,7 @@ Square::Square(int letter, int number)
 {
     this->letter = letter;
     this->number = number;
+    this-> piece = nullptr;
     this->isEmpty = true;
 }
 
