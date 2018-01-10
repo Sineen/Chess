@@ -13,7 +13,9 @@ Piece::Piece(piece_type type, piece_color color, Square square)
 {
     this->type=type;
     this->color=color;
-    this.square=square;
+    this->square=square;
+    this->letter = square.letter;
+    this->number = square.number;
 }
 
 void Piece::setSquare(Square square)
@@ -28,10 +30,13 @@ set<Square> Piece::ReturnSquaresInRange()
 
 set<Square> Piece::_getDiag(Board& board)
 {
-    set<Square> squares = set<Square>(){
-        set<Square> set = set<Square>();
+    set<Square> squares = set<Square>();
 
-
+    // do NE
+    for (int i = letter, j = number; i<7, j<7; ++i, ++j)
+    {
+        if (board.squares[i][j].isEmpty() ){ squares.emplace(board.squares[i][j]); }
+        else
     }
 }
 

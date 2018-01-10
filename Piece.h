@@ -31,7 +31,7 @@ public:
     piece_color enemyColor;
     Square square;
     bool hasMoved;
-    int i, j;  // board locations of piece be filed with the original spot
+    int letter, number;  // board locations of piece be filed with the original spot
 
 
     /**

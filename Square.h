@@ -28,7 +28,7 @@ public:
     /**
     * @brief getPiece.
     */
-    void getPiece();
+    Piece getPiece();
 
     /**
     * @brief empty.
