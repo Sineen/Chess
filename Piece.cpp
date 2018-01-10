@@ -88,14 +88,14 @@ set<Square> Piece::_getPawns()
     if(i<7){
 
         //add space if empty
-        if (board.squares[i+1][j].isEmpty){
+        if (board.squares[i+1][j].isEmpty()){
             squares.insert(board.squares[i][j]);
         }
 
         // if NE diagonal exists and is occupied by enemy, add it
         if(j<7){
-            if(!board.squares[i+1][j+1].isEmpty){
-                if(!board.squares[i+1][j+1].getPiece().color != color){
+            if(!board.squares[i+1][j+1].isEmpty()){
+                if(!board.squares[i+1][j+1].getPiece()->color != color){
                     squares.insert(board.squares[i+1][j+1]);
                 }
 
@@ -105,8 +105,8 @@ set<Square> Piece::_getPawns()
 
         // if NW diagonal exists and is occupied by enemy, add it
         if(j>0){
-            if(!board.squares[i+1][j-1].isEmpty){
-                if(!board.squares[i+1][j-1].getPiece().color != color){
+            if(!board.squares[i+1][j-1].isEmpty()){
+                if(!board.squares[i+1][j-1]->getPiece()->color != color){
                     squares.insert(board.squares[i+1][j-1]);
                 }
 
@@ -120,7 +120,15 @@ set<Square> Piece::_getPawns()
 
 set<Square> Piece::_getKnights(Board board)
 {
-    return set<Square>();
+    set<Square> squares = set<Square>();
+    for (int i = -1; i <=1 ; ++i)
+    {
+        for (int j = -1; j <=1 ; ++j)
+        {
+            if(!(i==0 && j==0))
+                checkAndAddIj(squares, number+i, letter+j);
+        }
+    }
 }
 
 set<Square> Piece::_getKing(Board board)
@@ -134,6 +142,7 @@ set<Square> Piece::_getKing(Board board)
             checkAndAddIj(squares, number+i, letter+j);
         }
     }
+    return squares;
 
 }
 
@@ -149,11 +158,11 @@ set<Square> Piece::_getQueen(Board board)
 }
 
 int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
-    if (board.squares[i][j].isEmpty){
+    if (board.squares[i][j].isEmpty()){
         squares.insert(board.squares[i][j]);
         return 0;
     }
-    else if (board.squares[i][j].getPiece().color != color ){
+    else if (board.squares[i][j].getPiece()->color != color ){
         squares.insert(board.squares[i][j]);
         return 1;
     }
@@ -166,10 +175,10 @@ int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
 void  Piece::checkAndAddIj(set<Square> &squares, int i, int j){
     if (i>=0 && i<8 && j>=0 && j<8)
     {
-        if (board.squares[i][j].isEmpty){
+        if (board.squares[i][j].isEmpty()){
             squares.insert(board.squares[i][j]);
         }
-        else if (board.squares[i][j].getPiece().color != color)
+        else if (board.squares[i][j].getPiece()->color != color)
         {
             squares.insert(board.squares[i][j]);
         }
