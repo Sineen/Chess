@@ -52,7 +52,8 @@ Board::Board(){
 * @brief Try to perform a move
 * @return 0 if move successful, 1 if illegal
 */
-int Board::Move (Square srcSquare, Square dstSquare, piece_color color){
+int Board::Move (Square srcSquare, Square dstSquare, piece_color color)
+{
 
 }
 
@@ -102,8 +103,10 @@ bool Board::CanLargeCastle (piece_color PlayerToCheck);
 /**
 * @brief Returns the square corresponding to the letter code
 */
-Square& Board::square(string squareName){
+Square& Board::square(string squareName)
+{
     int i =  squareName[0] - 'A';
     int j =  squareName[1] - '0';
     return squares[i][j];
 }
+

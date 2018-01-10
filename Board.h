@@ -48,7 +48,7 @@ private:
 
 
     /**
-    * @brief Gives a map of all of a player's pieces
+    * @brief Gives a set of all of a player's pieces
     */
     set<Piece> ReturnPlayerPices(piece_color playerColor);
 
@@ -78,7 +78,6 @@ private:
     * @brief Returns the square corresponding to the letter code
     */
     Square& square(string squareName);
-
 
 };
 

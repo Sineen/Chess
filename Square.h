@@ -13,7 +13,7 @@ class Square
 private:
     Piece* piece;
     int letter, number;
-    bool isEmpty = true;
+    bool isEmpty;
 
 public:
     /**
