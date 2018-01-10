@@ -11,7 +11,7 @@
 class Square
 {
 private:
-    Piece& piece;
+    Piece* piece;
     int letter, number;
     bool isEmpty = true;
 
@@ -29,12 +29,12 @@ public:
     /**
     * @brief setPiece.
     */
-    void setPiece(Piece& piece);
+    void setPiece(Piece *piece);
 
     /**
     * @brief getPiece.
     */
-    Piece getPiece();
+    Piece* getPiece();
 
     /**
     * @brief getts if the square is emoty or not return true or false accordingly .

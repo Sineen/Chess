@@ -14,17 +14,16 @@ Square::Square(int letter, int number)
 {
     this->letter = letter;
     this->number = number;
-    this-> piece = nullptr;
     this->isEmpty = true;
 }
 
-void Square::setPiece(Piece& piece)
+void Square::setPiece(Piece *piece)
 {
     this->piece = piece;
     isEmpty = false;
 }
 
-Piece Square::getPiece()
+Piece* Square::getPiece()
 {
     if (Square::isEmpty())
     {
