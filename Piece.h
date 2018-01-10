@@ -28,7 +28,6 @@ public:
 
     piece_type type;
     piece_color color;
-    piece_color enemyColor;
     Square& square;
     Board& board;
     bool hasMoved;
@@ -70,16 +69,11 @@ private:
      */
     set<Square> _getRows();
 
-    /**
- * @brief returns the squares on Col from piece.
- *        stops at board edge, or at friendly piece
- */
-    set<Square> _getColumes(Board board);
 
     /**
      * @brief returns the squares available to pawns.
      */
-    set<Square> _getPawns(Board board);
+    set<Square> _getPawns();
 
     /**
      * @brief returns the squares available to Knights.
@@ -98,6 +92,8 @@ private:
 
 
     int addAndCheckStop(set<Square> &squares, int i, int j);
+
+    void checkAndAddIj(set<Square> &squares, int i, int j);
 };
 
 

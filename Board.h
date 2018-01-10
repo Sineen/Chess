@@ -9,13 +9,11 @@
 #include "Square.h"
 #include "Piece.h"
 
-using namespace std;
-
 class Board
 {
 public:
 
-    Square squares[8][8];
+    Square* squares[8][8];
 
     /**
     * @brief Contructor. - sets the board with pieces
