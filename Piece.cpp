@@ -2,6 +2,7 @@
 // Created by jherskow on 1/8/18.
 //
 
+#include <algorithm>
 #include "Piece.h"
 
 set<Square> Piece::_getPawns(Board board)
@@ -94,13 +95,20 @@ set<Square> Piece::_getKnights(Board board)
 
 set<Square> Piece::_getKing(Board board)
 {
-    return set<Square>();
+    set<Square> squares = set<Square>();
+    addAndCheckStop(squares, i+1, j);
+
 }
 
 set<Square> Piece::_getQueen(Board board)
 {
     set<Square> squares = set<Square>();
-    squares.insert(_getDiag())
+    set<Square> rowPlaces = _getRows();
+    set<Square> diagPlaces = _getDiag();
+    set_union(rowPlaces.begin(),rowPlaces.end(),diagPlaces.begin(),
+              diagPlaces.end(), squares.end());
+
+    return squares;
 }
 
 int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
