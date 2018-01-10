@@ -14,6 +14,7 @@ class Square
 public:
     Piece piece;
     int letter, number;
+    bool isEmpty;
 
     /**
     * @brief Contructor.

@@ -33,10 +33,33 @@ set<Square> Piece::_getDiag(Board& board)
     set<Square> squares = set<Square>();
 
     // do NE
-    for (int i = letter, j = number; i<7, j<7; ++i, ++j)
+
+    for (int i = number, j = letter; i<7, j<7; ++i, ++j)
     {
-        if (board.squares[i][j].isEmpty() ){ squares.emplace(board.squares[i][j]); }
-        else
+        if (board.squares[i][j].isEmpty){ squares.emplace(board.squares[i][j]); }
+        else if (board.squares[i][j].getPiece().color != color ){
+            squares.emplace(board.squares[i][j]);
+            break;
+        }
+        else // this is a friendly piece
+        {
+            break;
+        }
+    }
+
+    // do SE
+
+    for (int i = i = number, j = letter; i<7, j<7; ++i, ++j)
+    {
+        if (board.squares[i][j].isEmpty){ squares.emplace(board.squares[i][j]); }
+        else if (board.squares[i][j].getPiece().color != color ){
+            squares.emplace(board.squares[i][j]);
+            break;
+        }
+        else // this is a friendly piece
+        {
+            break;
+        }
     }
 }
 
