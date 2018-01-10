@@ -35,6 +35,10 @@ public:
 
 
     /**
+     * just an empty constuctor;
+     */
+    Piece();
+    /**
     * @brief Contructor.
     */
     Piece(piece_type type, piece_color color, Square square);
