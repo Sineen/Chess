@@ -4,7 +4,41 @@
 
 #include "Square.h"
 
-Square::Square(Piece piece)
+
+Square::~Square()
 {
 
+}
+
+Square::Square(int letter, int number)
+{
+    this->letter = letter;
+    this->number = number;
+}
+
+void Square::setPiece(Piece& piece)
+{
+    this->piece = piece;
+    isEmpty = false;
+}
+
+Piece Square::getPiece()
+{
+    if (Square::isEmpty())
+    {
+        return nullptr;
+    }
+    return piece;
+}
+
+
+bool Square::isEmpty()
+{
+    return Square::isEmpty;
+}
+
+void Square::deletePiece()
+{
+    isEmpty = true;
+    this->piece = nullptr;
 }
