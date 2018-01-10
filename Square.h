@@ -10,21 +10,26 @@
 
 class Square
 {
+private:
+    Piece& piece;
+    int letter, number;
+    bool isEmpty = true;
 
 public:
-    Piece piece;
-    int letter, number;
-    bool isEmpty;
+    /**
+     * Distructor;
+     */
+    virtual ~Square();
 
     /**
     * @brief Contructor.
     */
-    Square(Piece piece);
+    Square(int letter, int number);
 
     /**
     * @brief setPiece.
     */
-    void setPiece(Piece piece);
+    void setPiece(Piece& piece);
 
     /**
     * @brief getPiece.
@@ -32,9 +37,14 @@ public:
     Piece getPiece();
 
     /**
-    * @brief empty.
+    * @brief getts if the square is emoty or not return true or false accordingly .
     */
-    void empty();
+    bool isEmpty();
+
+    /**
+     * if the square is not empty it will delete it
+     */
+    void deletePiece();
 
 };
 
