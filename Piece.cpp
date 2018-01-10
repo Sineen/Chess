@@ -5,10 +5,6 @@
 #include <algorithm>
 #include "Piece.h"
 
-set<Square> Piece::_getPawns(Board board)
-{
-    return set<Square>();
-}
 
 Piece::Piece(piece_type type, piece_color color, Square& square)
 {
@@ -83,9 +79,43 @@ set<Square> Piece::_getRows()
     return squares;
 }
 
-set<Square> Piece::_getColumes(Board board)
+set<Square> Piece::_getPawns()
 {
-    return set<Square>();
+    set<Square> squares = set<Square>();
+    int i = number, j=letter;
+
+    // if there is a row in front of pawn
+    if(i<7){
+
+        //add space if empty
+        if (board.squares[i+1][j].isEmpty){
+            squares.insert(board.squares[i][j]);
+        }
+
+        // if NE diagonal exists and is occupied by enemy, add it
+        if(j<7){
+            if(!board.squares[i+1][j+1].isEmpty){
+                if(!board.squares[i+1][j+1].getPiece().color != color){
+                    squares.insert(board.squares[i+1][j+1]);
+                }
+
+            }
+
+        }
+
+        // if NW diagonal exists and is occupied by enemy, add it
+        if(j>0){
+            if(!board.squares[i+1][j-1].isEmpty){
+                if(!board.squares[i+1][j-1].getPiece().color != color){
+                    squares.insert(board.squares[i+1][j-1]);
+                }
+
+            }
+
+        }
+    }
+
+    return squares;
 }
 
 set<Square> Piece::_getKnights(Board board)
@@ -96,7 +126,14 @@ set<Square> Piece::_getKnights(Board board)
 set<Square> Piece::_getKing(Board board)
 {
     set<Square> squares = set<Square>();
-    addAndCheckStop(squares, i+1, j);
+    for (int i = -1; i <=1 ; ++i)
+    {
+        for (int j = -1; j <=1 ; ++j)
+        {
+            if(!(i==0 && j==0))
+            checkAndAddIj(squares, number+i, letter+j);
+        }
+    }
 
 }
 
@@ -123,5 +160,18 @@ int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
     else // this is a friendly piece
     {
         return 1;
+    }
+}
+
+void  Piece::checkAndAddIj(set<Square> &squares, int i, int j){
+    if (i>=0 && i<8 && j>=0 && j<8)
+    {
+        if (board.squares[i][j].isEmpty){
+            squares.insert(board.squares[i][j]);
+        }
+        else if (board.squares[i][j].getPiece().color != color)
+        {
+            squares.insert(board.squares[i][j]);
+        }
     }
 }
