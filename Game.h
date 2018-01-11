@@ -34,7 +34,7 @@ public:
      * @param color the number of player white player  black player
      * @return the name of the player  according to the parameter
      */
-    string getName(piece_color color) const;
+    string& getName(piece_color color) const;
 
     /**
      * @param number the number of the player white player  black player
@@ -42,10 +42,15 @@ public:
      */
     void setName(piece_color color);
 
+    string askForMove(piece_color color) const;
+
+    void win(piece_color color) const;
+
 private:
 
-    string whitePlayer;
-    string blackPlayer;
+    string& whitePlayer;
+    string& blackPlayer;
+    string nextMove;
     /**
      * @brief Gets a move from the user.
      */
