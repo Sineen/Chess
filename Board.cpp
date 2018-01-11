@@ -3,16 +3,21 @@
 //
 
 #include <list>
+#include <iostream>
 #include "Board.h"
+
+#define FIRST_LINE "\33[0;0m  ABCDEFGH  \33[0m"
+
 
 /**
 * @brief Contructor. - sets the board with pieces
 */
-Board::Board(){
+Board::Board()
+{
 
-    for (int i = 0; i <8 ; ++i)
+    for (int i = 0; i < 8 ; ++i)
     {
-        for (int j = 0; j <8 ; ++j)
+        for (int j = 0; j < 8 ; ++j)
         {
             squares[i][j] = Square(i,j);
         }
@@ -32,7 +37,7 @@ Board::Board(){
 
     piece_color cur = white;
     int i = 0;
-    for (int j = 0; j <8 ; ++j)
+    for (int j = 0; j < 8 ; ++j)
     {
         squares[i][j].setPiece(new Piece(settingList[j],cur,squares[i][j]));
     }
@@ -65,40 +70,75 @@ int Board::Move (Square srcSquare, Square dstSquare, piece_color color)
 /**
 * @brief Gives a map of legal destinations for a specific piece.
 */
-Square Board::strToSquare(string letterPair);
+Square Board::strToSquare(string letterPair)
+{
+
+}
 
 /**
  * print the board
  */
-void Board::printBoard();
+void Board::printBoard()
+{
+    cout << FIRST_LINE << endl;
+    string backGround = BLUE_BACKGROUND;
+
+    for (int i = 0; i < 8 ; ++i)
+    {
+        cout << "\33[0;0m" << i <<" \33[0m" ;
+        for (int j = 0; j < 8 ; ++j)
+        {
+            if ()
+            cout << "\33["<< backGround<<";";//0m" << i <<" \33[0m" ;
+        }
+        cout << "\33[0;0m " << i <<"\33[0m" << endl;
+    }
+
+
+}
 
 
 /**
 * @brief Gives a map of all of a player's pieces
 */
-set<Piece> Board::ReturnPlayerPices(piece_color playerColor);
+set<Piece> Board::ReturnPlayerPices(piece_color playerColor)
+{
+
+}
 
 /**
 * @brief Gives a set of all of a player's legal Dest
  *      ( used to check if enemy can kill my king)
 */
-set<Square> Board::ReturnPlayerLegalMoves(piece_color playerColor);
+set<Square> Board::ReturnPlayerLegalMoves(piece_color playerColor)
+{
+
+}
 
 /**
 * @brief Return true if player (PlayerToCheck) is in check after move
  *       Should be called only if a move is otherwise legal
 */
-bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck);
+bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck)
+{
+
+}
 
 /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
 */
-bool Board::CanSmallCastle (piece_color PlayerToCheck);
+bool Board::CanSmallCastle (piece_color PlayerToCheck)
+{
+
+}
 
 /**
 * @brief Return true if player (PlayerToCheck) can perform a large castle
 */
-bool Board::CanLargeCastle (piece_color PlayerToCheck);
+bool Board::CanLargeCastle (piece_color PlayerToCheck)
+{
+
+}
 
 /**
 * @brief Returns the square corresponding to the letter code

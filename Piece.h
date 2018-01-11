@@ -9,14 +9,23 @@
 #include <set>
 #include "Square.h"
 #include "Board.h"
+#define QUEEN "265B"
+#define KING "265A"
+#define BISHOP "265D"
+#define KNIGHT "265E"
+#define ROOK "265C"
+#define PAWN "265F"
 
 using namespace std;
 
-enum piece_type{
+
+enum piece_type
+{
     queen, king, bishop, knight, rook, pawn
 };
 
-enum piece_color{
+enum piece_color
+{
     black, white
 };
 

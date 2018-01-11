@@ -8,6 +8,13 @@
 #include <map>
 #include "Square.h"
 #include "Piece.h"
+#define ZERO_TEXT "0"
+#define WHITE_TEXT "37"
+#define BLACK_TEXT "30"
+#define GREEN_BACKGROUND "42"
+#define BLUE_BACKGROUND "46"
+#define RED_BACKGROUND "41"
+
 
 class Board
 {
