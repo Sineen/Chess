@@ -8,14 +8,12 @@
 #include <iostream>
 #include "Board.h"
 
-using namespace std;
-
 class Game
 {
 
 public:
 
-    string CurPlayer;
+    std::string CurPlayer;
     Board board;
 
 
@@ -34,27 +32,35 @@ public:
      * @param color the number of player white player  black player
      * @return the name of the player  according to the parameter
      */
-    string& getName(piece_color color) const;
+    std::string getName(piece_color color) const;
 
     /**
      * @param number the number of the player white player  black player
      * @return sets the name of the  white player  black player
      */
-    void setName(piece_color color);
+    std::string setName(piece_color color);
 
-    string askForMove(piece_color color) const;
+    std::string askForMove(piece_color color) const;
 
     void win(piece_color color) const;
 
 private:
 
-    string& whitePlayer;
-    string& blackPlayer;
-    string nextMove;
+    std::string whitePlayer;
+    std::string blackPlayer;
+    std::string nextMove;
+    piece_color curPlayer;
+
     /**
      * @brief Gets a move from the user.
      */
-    void _getMove();
+    void askForMove();
+
+    int Game::makeMove(string& move);
+
+    void Game::switchPlayer()
+
+
 
 };
 
