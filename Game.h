@@ -40,7 +40,7 @@ public:
      */
     std::string setName(piece_color color);
 
-    void win() const;
+    void win();
 
 private:
 
