@@ -313,23 +313,14 @@ bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
     return retVal;
 }
 
-const Square &Board::getLastSource() const
-{
-    return lastSource;
-}
-
-const Square &Board::getLastDistination() const
-{
-    return lastDistination;
-}
-
-void Board::setLastSource(const Square &lastSource)
+void Board::setLastSource(Square *lastSource)
 {
     Board::lastSource = lastSource;
 }
 
-void Board::setLastDistination(const Square &lastDistination)
+void Board::setLastDistination(Square *lastDistination)
 {
     Board::lastDistination = lastDistination;
 }
+
 

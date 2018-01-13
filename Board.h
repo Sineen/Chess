@@ -77,16 +77,10 @@ public:
     * @brief Return true if player (PlayerToCheck) can perform a large castle
     */
     bool CanLargeCastle (piece_color PlayerToCheck);
-    // getters
-    const Square &getLastSource() const;
 
-    const Square &getLastDistination() const;
+    void setLastSource(Square *lastSource);
 
-    ///setters
-    void setLastSource(const Square &lastSource);
-
-    void setLastDistination(const Square &lastDistination);
-
+    void setLastDistination(Square *lastDistination);
 
 
     /**
