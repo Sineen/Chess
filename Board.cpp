@@ -4,6 +4,7 @@
 
 #include <list>
 #include <iostream>
+#include <algorithm>
 #include "Board.h"
 
 #define FIRST_LINE "\33[0;0m  ABCDEFGH  \33[0m"
@@ -158,13 +159,13 @@ set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
 	set squaresCanBeLandedOn;
 	set piecesPlayedHas = Board::returnPlayerPices(playerColor);
-	for(auto &square : piecesPlayedHas)
+	for(auto square : piecesPlayedHas)
 	{
-		piece_type piece = square.getPiece().getType();
-		switch (piece)
+		Piece piece = square.getPeice();
+		switch (piece.getType())
 		{
 			case queen:
-				squaresCanBeLandedOn.insert();
+				squaresCanBeLandedOn = piece._getQueen(this);_
 		}
 	}
 }

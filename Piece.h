@@ -7,8 +7,10 @@
 
 #include <map>
 #include <set>
+#include <algorithm>
 #include "Square.h"
 #include "Board.h"
+
 #define QUEEN "\u265B"
 #define KING "\u265A"
 #define BISHOP "\u265D"
@@ -16,7 +18,6 @@
 #define ROOK "\u265C"
 #define PAWN "\u265F"
 
-using namespace std;
 
 
 enum piece_type
@@ -78,6 +79,9 @@ public:
 	void setNumber(int number);
 
 	string pieceCode();
+
+	set<Square> getSquaresCouldMove();
+
 
 private:
 	piece_type type;

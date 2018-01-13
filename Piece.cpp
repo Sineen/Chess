@@ -1,9 +1,6 @@
-//
-// Created by jherskow on 1/8/18.
-//
 
-#include <algorithm>
 #include "Piece.h"
+using namespace std;
 
 
 Piece::Piece(piece_type type, piece_color color, Square& square)
@@ -284,4 +281,27 @@ string Piece::pieceCode()
 		default:
 			return nullptr;
 	}
+}
+
+set<Square> Piece::getSquaresCouldMove()
+{
+	set<Square> squareCouldMoveTo;
+	switch (getType())
+	{
+		case queen:
+			squareCouldMoveTo = _getQueen(getBoard());
+		case king:
+			squareCouldMoveTo = _getKing(getBoard());
+		case rook:
+			squareCouldMoveTo = set_union (_getRows().begin(), _getRows().end() , _getRows().begin() , _getRows().end());
+		case bishop:
+			squareCouldMoveTo = _getDiag();
+		case knight:
+			squareCouldMoveTo = _getKnights(getBoard());
+		case pawn:
+			squareCouldMoveTo = _getPawns();
+
+	}
+
+	return set<Square>();
 }
