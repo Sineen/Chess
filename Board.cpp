@@ -191,6 +191,10 @@ bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToChe
 
 bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck)
 {
+	if (srcSquare.isEmpty())
+	{
+		return false;
+	}
 	bool returnVal1 = false;
 	bool returnVal2 = false;
 	unordered_set<Square> peiecesLocation = returnPlayerPices(playerToCheck);

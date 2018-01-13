@@ -5,11 +5,6 @@
 #include "Square.h"
 
 
-Square::~Square()
-{
-
-}
-
 Square::Square(int letter, int number)
 {
     this->letter = letter;

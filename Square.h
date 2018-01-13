@@ -16,10 +16,6 @@ private:
     bool isEmptty;
 
 public:
-    /**
-     * Distructor;
-     */
-    virtual ~Square();
 
     /**
     * @brief Contructor.

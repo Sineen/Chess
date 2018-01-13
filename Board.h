@@ -50,7 +50,7 @@ public:
     void printBoard();
 
 
-    string pieceColorCode(piece_color color);
+	string pieceColorCode(piece_color color);
 
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
@@ -88,6 +88,14 @@ private:
     */
     Square& square(std::string squareName);
 
+
+	/**
+	 *
+	 * @param srcSquare the source square
+	 * @param dstSquare  teh distenation square
+	 * @param playerToCheck  the player making the move  which color
+	 * @return  true if he had a peice in his suc square and the dst square was a legal move to it
+	 */
 	bool isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck);
 };
 
