@@ -157,16 +157,34 @@ set<Square> Board::returnPlayerPices(piece_color playerColor)
 */
 set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
-	set squaresCanBeLandedOn;
-	set piecesPlayedHas = Board::returnPlayerPices(playerColor);
+	set<Square> squaresCanBeLandedOn;
+	set<Square> piecesPlayedHas = Board::returnPlayerPices(playerColor);
+	set<Square> temp;
 	for(auto square : piecesPlayedHas)
 	{
-		Piece piece = square.getPeice();
-		switch (piece.getType())
+		Piece* piece = square.getPiece();
+		switch (piece->getType())
 		{
 			case queen:
-				squaresCanBeLandedOn = piece._getQueen(this);_
+				temp = piece->_getQueen();
+				break;
+			case king:
+				temp = piece->_getKing();
+				break;
+			case rook:
+				temp = piece->_getRook();
+				break;
+			case bishop:
+				temp = piece->_getBishop();
+				break;
+			case knight:
+				temp = piece->_getKnights();
+				break;
+			case pawn:
+				temp = piece->_getPawns();
+				break;
 		}
+		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
 }
 
