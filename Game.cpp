@@ -16,6 +16,7 @@ Game::Game()
 {
     whitePlayer = setName(white);
     blackPlayer = setName(black);
+    curPlayer = white;
     Board board();
 }
 
@@ -61,9 +62,9 @@ void Game::askForMove()
     cin >> nextMove;
 }
 
-void Game::win() const
+void Game::win()
 {
-    Board::printBoard();
+    board.printBoard();
     cout << getName(curPlayer)<< WIN << endl;
 }
 
@@ -73,7 +74,7 @@ int Game::makeMove()
 
     int quit = 0;
     // todo check if in check
-    if(5555){
+    if(board.isCheck(curPlayer)){ //todo make func w this sgnature
 
 
         // todo - if in check - check all moves by piece
@@ -127,8 +128,8 @@ int Game::makeMove()
     string srcStr = nextMove.substr(0,1);
     string dstStr = nextMove.substr(2,3);
 
-    Square& src = board(srcStr);
-    Square& dst = board(dstStr);
+    Square src = board.strToSquare(srcStr);
+    Square dst = board.strToSquare(dstStr);
 
     // make sure source is not-empty and player color
     if (src.isEmpty()) {return 1;}
@@ -165,7 +166,6 @@ int Game::makeMove()
 
 void Game::play()
 {
-    curPlayer = white;
     int status = 0;
     while (status == 0){
         board.printBoard();   //todo check print
