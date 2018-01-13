@@ -5,7 +5,7 @@
 #include <list>
 #include <iostream>
 #include <algorithm>
-#include <unordered_set> as s
+#include <unordered_set>
 #include "Board.h"
 
 #define FIRST_LINE "\33[0;0m  ABCDEFGH  \33[0m"
