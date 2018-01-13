@@ -40,7 +40,7 @@ set<Square> Piece::_getBishop()
     }
 
     // do NW
-    for (int i = number, j = letter; i < 8, j > =0; ++i, --j){
+    for (int i = number, j = letter; i < 8, j >= 0; ++i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
