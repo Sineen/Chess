@@ -114,7 +114,7 @@ int Game::makeMove()
             return 1;
         }
         // save original positions
-        // todo small castle
+        // todo small castle (using move() -  with swap))
 
 
     }else if(nextMove == "o-o-o"){
@@ -122,7 +122,7 @@ int Game::makeMove()
             return 1;
         }
         // save original positions
-        //todo large castle
+        //todo large castle (using move() -no  swap))
 
     }
 
@@ -137,14 +137,15 @@ int Game::makeMove()
     if(!board.isLegal(src,dst,curPlayer)) return 1;
 
 
-    // else move is legal movement - we must make sure it does not lead to check
+    // else move is legal movement - we must make sure it does not lead to check!
     if (board.isCheck(src,dst,curPlayer)){
         return 1;
     }
 
-    //todo do move
+    //do move
+    board.Move(src,dst);
 
-    // if ok, were done.
+    // were done.
     return 0;
 
 }

@@ -262,28 +262,11 @@ void Board::UnMove ()
 }
 
 
-bool Board::isCheck(piece_color PlayerToCheck){
-    //todo make
+bool Board::isCheck(piece_color playerToCheck){
 
-
-
-
-}
-
-
-/**
-* @brief Return true if player (PlayerToCheck) is in check after move
- *       Should be called only if a move is otherwise legal
-*/
-bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
-{
     piece_color  enemyColor = (playerToCheck==white)? black: white;
-    bool retVal = false;
     int kI=0,kJ=0;
-
-    //do move
-    Move(src,dst);
-
+    bool retVal = false;
 
     // get enemy moves
     unordered_set<Square> enemyDestinations = returnPlayerLegalMoves(enemyColor);
@@ -294,8 +277,8 @@ bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
         for (int j = 0; j <8 ; ++j)
         {
             if ((!squares[i][j].isEmpty()) &&
-                    (squares[i][j].getColor() == playerToCheck) &&
-                    (squares[i][j].getPiece()->getType() == king )){
+                (squares[i][j].getColor() == playerToCheck) &&
+                (squares[i][j].getPiece()->getType() == king )){
 
                 kI=i;
                 kJ=j;
@@ -307,13 +290,29 @@ bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
     // check if player king is reachaBle
     if (enemyDestinations.find(squares[kI][kJ]) != enemyDestinations.end()) retVal = true;
 
+    return retVal;
+}
+
+
+/**
+* @brief Return true if player (PlayerToCheck) is in check after move
+ *       Should be called only if a move is otherwise legal
+*/
+bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
+{
+    bool retVal = false;
+
+    //do move
+    Move(src,dst);
+
+    //check if check
+    retVal = isCheck(playerToCheck);
+
     //undo move
     UnMove();
 
     //return Bool
     return retVal;
-
-
 }
 
 const Square &Board::getLastSource() const
