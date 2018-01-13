@@ -4,8 +4,9 @@
 using namespace std;
 
 
-Piece::Piece(Board &board, Square &square, piece_type type, piece_color color)
+Piece::Piece(Board *board, Square *square, piece_type type, piece_color color)
 {
+
 	Piece::setBoard(board);
     Piece::setSquare(square);
 	Piece::setType(type);
@@ -23,22 +24,22 @@ set<Square> Piece::_getBishop()
     set<Square> squares = set<Square>();
 
     // do NE
-    for (int i = square.getNumber(), j = square.getLetter(); i < 8, j < 8; ++i, ++j){
+    for (int i = square->getNumber(), j = square->getLetter(); i < 8, j < 8; ++i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SE
-    for (int i = square.getNumber(), j = square.getLetter(); i >= 0, j < 8; --i, ++j){
+    for (int i = square->getNumber(), j = square->getLetter(); i >= 0, j < 8; --i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SW
-    for (int i = square.getNumber(), j = square.getLetter(); i >= 0, j >= 0; --i, --j){
+    for (int i = square->getNumber(), j = square->getLetter(); i >= 0, j >= 0; --i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do NW
-    for (int i = square.getNumber(), j = square.getLetter(); i < 8, j >= 0; ++i, --j){
+    for (int i = square->getNumber(), j = square->getLetter(); i < 8, j >= 0; ++i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
@@ -51,22 +52,22 @@ set<Square> Piece::_getRook()
     set<Square> squares = set<Square>();
 
     // do N
-    for (int i = square.getNumber(), j = square.getLetter(); i < 8; ++i){
+    for (int i = square->getNumber(), j = square->getLetter(); i < 8; ++i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do S
-    for (int i = square.getNumber(), j = square.getLetter(); i >= 0; --i){
+    for (int i = square->getNumber(), j = square->getLetter(); i >= 0; --i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do E
-    for (int i = square.getNumber(), j = square.getLetter(); j < 8; ++j){
+    for (int i = square->getNumber(), j = square->getLetter(); j < 8; ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do W
-    for (int i = square.getNumber(), j = square.getLetter(); j >= 0; --j){
+    for (int i = square->getNumber(), j = square->getLetter(); j >= 0; --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
@@ -77,21 +78,21 @@ set<Square> Piece::_getPawns()
 {
 	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
     set<Square> squares = set<Square>();
-    int i = square.getNumber(), j = square.getLetter();
+    int i = square->getNumber(), j = square->getLetter();
 
     // if there is a row in front of pawn
     if(i<7){
 
         //add space if empty
-        if (board.squares[i+1][j].isEmpty()){
-            squares.insert(board.squares[i][j]);
+        if (board->squares[i+1][j].isEmpty()){
+            squares.insert(board->squares[i][j]);
         }
 
         // if NE diagonal exists and is occupied by enemy, add it
         if(j<7){
-            if(!board.squares[i+1][j+1].isEmpty()){
-                if(!board.squares[i+1][j+1].getPiece()->color != color){
-                    squares.insert(board.squares[i+1][j+1]);
+            if(!board->squares[i+1][j+1].isEmpty()){
+                if(!board->squares[i+1][j+1].getPiece()->color != color){
+                    squares.insert(board->squares[i+1][j+1]);
                 }
 
             }
@@ -100,9 +101,9 @@ set<Square> Piece::_getPawns()
 
         // if NW diagonal exists and is occupied by enemy, add it
         if(j>0){
-            if(!board.squares[i+1][j-1].isEmpty()){
-                if(!board.squares[i+1][j-1].getPiece()->color != color){
-                    squares.insert(board.squares[i+1][j-1]);
+            if(!board->squares[i+1][j-1].isEmpty()){
+                if(!board->squares[i+1][j-1].getPiece()->color != color){
+                    squares.insert(board->squares[i+1][j-1]);
                 }
 
             }
@@ -122,7 +123,7 @@ set<Square> Piece::_getKnights()
     {
         for (int j = -1; j <= 1 ; j += 2)
         {
-            checkAndAddIj(squares, square.getNumber() + i, square.getLetter() + j);
+            checkAndAddIj(squares, square->getNumber() + i, square->getLetter() + j);
         }
     }
     // i change 1, j change 2
@@ -130,7 +131,7 @@ set<Square> Piece::_getKnights()
     {
         for (int j = -2; j <= 2 ; j += 4)
         {
-            checkAndAddIj(squares, square.getNumber() + i, square.getLetter() + j);
+            checkAndAddIj(squares, square->getNumber() + i, square->getLetter() + j);
         }
     }
 
@@ -145,7 +146,7 @@ set<Square> Piece::_getKing()
         for (int j = -1; j <= 1 ; ++j)
         {
             if(!(i == 0 && j == 0))
-            checkAndAddIj(squares, square.getNumber() + i, square.getLetter() + j);
+            checkAndAddIj(squares, square->getNumber() + i, square->getLetter() + j);
         }
     }
     return squares;
@@ -164,12 +165,12 @@ set<Square> Piece::_getQueen()
 }
 
 int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
-    if (board.squares[i][j].isEmpty()){
-        squares.insert(board.squares[i][j]);
+    if (board->squares[i][j].isEmpty()){
+        squares.insert(board->squares[i][j]);
         return 0;
     }
-    else if (board.squares[i][j].getPiece()->color != color ){
-        squares.insert(board.squares[i][j]);
+    else if (board->squares[i][j].getPiece()->color != color ){
+        squares.insert(board->squares[i][j]);
         return 1;
     }
     else // this is a friendly piece
@@ -179,14 +180,14 @@ int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
 }
 
 void  Piece::checkAndAddIj(set<Square> &squares, int i, int j){
-    if (i>=0 && i<8 && j>=0 && j<8)
+    if (i >= 0 && i < 8 && j >= 0 && j <8 )
     {
-        if (board.squares[i][j].isEmpty()){
-            squares.insert(board.squares[i][j]);
+        if (board->squares[i][j].isEmpty()){
+            squares.insert(board->squares[i][j]);
         }
-        else if (board.squares[i][j].getPiece()->color != color)
+        else if (board->squares[i][j].getPiece()->color != color)
         {
-            squares.insert(board.squares[i][j]);
+            squares.insert(board->squares[i][j]);
         }
     }
 }
@@ -201,12 +202,12 @@ piece_color Piece::getColor() const
     return color;
 }
 
-Square &Piece::getSquare() const
+Square* Piece::getSquare() const
 {
     return square;
 }
 
-Board &Piece::getBoard() const
+Board* Piece::getBoard() const
 {
     return board;
 }
@@ -227,12 +228,12 @@ void Piece::setColor(piece_color color)
     Piece::color = color;
 }
 
-void Piece::setSquare(Square &square)
+void Piece::setSquare(Square *square)
 {
     Piece::square = square;
 }
 
-void Piece::setBoard(Board &board)
+void Piece::setBoard(Board *board)
 {
     Piece::board = board;
 }

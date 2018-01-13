@@ -42,7 +42,7 @@ public:
     /**
     * @brief Contructor.
     */
-    Piece(Board& board, Square& square,piece_type type, piece_color color);
+    Piece(Board* board, Square* square,piece_type type, piece_color color);
 
     /**
     * @brief Gives a map of places piece can move to.
@@ -53,9 +53,9 @@ public:
 
 	piece_color getColor() const;
 
-	Square &getSquare() const;
+	Square* getSquare() const;
 
-	Board &getBoard() const;
+	Board* getBoard() const;
 
 	bool isHasMoved() const;
 
@@ -63,9 +63,9 @@ public:
 
 	void setColor(piece_color color);
 
-	void setSquare(Square &square);
+	void setSquare(Square *square);
 
-	void setBoard(Board &board);
+	void setBoard(Board *board);
 
 	void setHasMoved(bool hasMoved);
 
@@ -77,8 +77,8 @@ public:
 private:
 	piece_type type;
 	piece_color color;
-    Square& square;
-    Board& board;
+    Square* square;
+    Board* board;
     bool hasMoved;
 //    int letter, number;  // board locations of piece be filed with the original spot
 
