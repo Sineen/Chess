@@ -105,9 +105,7 @@ set<Square> Piece::_getPawns()
                 if(!board->squares[i+1][j-1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j-1]);
                 }
-
             }
-
         }
     }
 

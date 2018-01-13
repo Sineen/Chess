@@ -5,6 +5,7 @@
 #include <list>
 #include <iostream>
 #include <algorithm>
+#include <unordered_set> as s
 #include "Board.h"
 
 #define FIRST_LINE "\33[0;0m  ABCDEFGH  \33[0m"
@@ -226,6 +227,28 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 */
 bool Board::CanSmallCastle (piece_color PlayerToCheck)
 {
+    int row = (PlayerToCheck == white)? 0: 7;
+    int k =4, s1 = 5, s2=6, r=7;
+    piece_color enemyColor = (PlayerToCheck==white) ? black : white;
+
+    // make sure king is there and unmoved
+    if (squares[row][k].isEmpty()) return false;
+    if (squares[row][k].getPiece()->getType() != king) return false;
+    if (squares[row][k].getPiece()->isHasMoved()) return false;
+
+    // make sure rook is there and unmoved
+    if (squares[row][r].isEmpty()) return false;
+    if (squares[row][r].getPiece()->getType() != rook) return false;
+    if (squares[row][r].getPiece()->isHasMoved()) return false;
+
+    //make sure all pices and spaces are not threaened
+    unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
+    if ( !(threatened.find(squares[row][k]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][s1]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][s2]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][r]) == threatened.end()) ){ return false;}
+
+    return true;
 
 }
 
@@ -234,7 +257,29 @@ bool Board::CanSmallCastle (piece_color PlayerToCheck)
 */
 bool Board::CanLargeCastle (piece_color PlayerToCheck)
 {
+    int row = (PlayerToCheck == white)? 0: 7;
+    int k =4, s1 = 3, s2=2, s3=1, r=0;
+    piece_color enemyColor = (PlayerToCheck==white) ? black : white;
 
+    // make sure king is there and unmoved
+    if (squares[row][k].isEmpty()) return false;
+    if (squares[row][k].getPiece()->getType() != king) return false;
+    if (squares[row][k].getPiece()->isHasMoved()) return false;
+
+    // make sure rook is there and unmoved
+    if (squares[row][r].isEmpty()) return false;
+    if (squares[row][r].getPiece()->getType() != rook) return false;
+    if (squares[row][r].getPiece()->isHasMoved()) return false;
+
+    //make sure all pices and spaces are not threaened
+    unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
+    if ( !(threatened.find(squares[row][k]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][s1]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][s2]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][s3]) == threatened.end()) ){ return false;}
+    if ( !(threatened.find(squares[row][r]) == threatened.end()) ){ return false;}
+
+    return true;
 }
 
 /**
