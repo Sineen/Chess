@@ -122,8 +122,8 @@ int Game::makeMove()
     string srcStr = nextMove.substr(0,1);
     string dstStr = nextMove.substr(2,3);
 
-    Square src = board.square(srcStr);
-    Square dst = board.square(dstStr);
+    Square src = board.stringToSquare(srcStr);
+    Square dst = board.stringToSquare(dstStr);
 
     // make sure source is not-empty and player color
     if (src.isEmpty()) {return 1;}

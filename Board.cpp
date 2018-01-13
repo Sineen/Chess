@@ -89,10 +89,10 @@ void Board::printBoard()
             }
             else
             {
-                pieceColor = Board::pieceColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
+                pieceColor = Board::pieceColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh stringToSquare
 				pieceCodes = squares[i][j].getPiece()->pieceCode();
             }
-			//print the square
+			//print the stringToSquare
             cout << "\33[" << pieceColor << ";" << backGround << "m" << pieceCodes << " \33[0m";
         }
 		// print the number of the check in the last on the line  and goes to a new line
@@ -263,7 +263,7 @@ bool Board::CanLargeCastle (piece_color PlayerToCheck)
 /**
 * @brief Returns the square corresponding to the letter code
 */
-Square& Board::square(string squareName)
+Square& Board::stringToSquare(string squareName)
 {
     int i =  squareName[0] - 'A';
     int j =  squareName[1] - '0';

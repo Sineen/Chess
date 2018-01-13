@@ -42,7 +42,7 @@ public:
     /**
     * @brief Returns the square corresponding to the letter code
     */
-    Square& square(std::string squareName);
+    Square& stringToSquare(std::string squareName);
 
     /**
     * @brief Return true if player (PlayerToCheck) is in check after move
