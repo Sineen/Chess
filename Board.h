@@ -101,8 +101,8 @@ public:
 
 private:
 
-    Square lastSource;
-    Square lastDistination;
+    Square* lastSource;
+    Square* lastDistination;
     bool undidMove = false;
     bool lastPieceMoved;
 

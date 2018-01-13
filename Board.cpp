@@ -16,7 +16,6 @@
 */
 Board::Board()
 {
-
     for (int i = 0; i < 8 ; ++i)
     {
         for (int j = 0; j < 8 ; ++j)
@@ -254,9 +253,9 @@ void Board::UnMove ()
 {
     if (!undidMove)
     {
-        lastSource.setPiece(lastDistination.getPiece());
-        lastDistination.deletePiece();
-        lastSource.getPiece()->setHasMoved(lastPieceMoved);
+        lastSource->setPiece(lastDistination->getPiece());
+        lastDistination->deletePiece();
+        lastSource->getPiece()->setHasMoved(lastPieceMoved);
     }
 }
 
