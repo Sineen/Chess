@@ -82,27 +82,73 @@ void Board::printBoard()
 {
     cout << FIRST_LINE << endl;
     string backGround = BLUE_BACKGROUND;
-
-    for (int i = 0; i < 8 ; ++i)
+    string pieceColor = ZERO_TEXT;
+	string pieceCodes = " ";
+    for (int i = 8; i > 0 ; --i) // becasue we print from top to bottom so we need the last  line in the array
+		// todo ask josh how he filled it in
     {
+		// prints thenumber in the beging of the line
         cout << "\33[0;0m" << i <<" \33[0m" ;
         for (int j = 0; j < 8 ; ++j)
         {
-            if ()
-            cout << "\33["<< backGround<<";";//0m" << i <<" \33[0m" ;
+            if (squares[i][j].isEmpty())
+            {
+                pieceColor = ZERO_TEXT;
+				pieceCodes = " ";
+            }
+            else
+            {
+                pieceColor = Board::colorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
+				pieceCodes = squares[i][j].getPiece()->pieceCode();
+            }
+			//print the square
+            cout << "\33[" << pieceColor << ";" << backGround << "m" << pieceCodes << " \33[0m";
+			 // switching the back ground color to make teh chekboard pattern
+            if ( backGround == BLUE_BACKGROUND)
+            {
+                backGround == GREEN_BACKGROUND;
+            }
+            else if ( backGround == GREEN_BACKGROUND)
+            {
+                backGround == BLUE_BACKGROUND;
+            }
         }
+		// print the number of the check in the last on the line  and goes to a new line
         cout << "\33[0;0m " << i <<"\33[0m" << endl;
     }
-
-
 }
 
+string colorCode(piece_color color)
+{
+    if ( color == white)
+    {
+       return WHITE_TEXT;
+    }
+    else if ( color == black )
+    {
+        return BLACK_TEXT;
+    }
+    else
+    {
+        return  ZERO_TEXT;
+    }
+}
 
 /**
 * @brief Gives a map of all of a player's pieces
 */
 set<Piece> Board::ReturnPlayerPices(piece_color playerColor)
 {
+	for (int i = 0; i < 8 ; ++i)
+	{
+		for (int j = 0; j < 8 ; ++j)
+		{
+			if(squares[i][j].getPiece()->getColor() == playerColor)
+			{
+
+			}
+		}
+	}
 
 }
 

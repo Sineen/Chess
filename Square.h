@@ -13,7 +13,7 @@ class Square
 private:
     Piece* piece;
     int letter, number;
-    bool isEmpty;
+    bool isEmptty;
 
 public:
     /**
@@ -46,7 +46,20 @@ public:
      */
     void deletePiece();
 
+    int getLetter() const;
+
+    int getNumber() const;
+
 };
 
+int Square::getLetter() const
+{
+    return letter;
+}
+
+int Square::getNumber() const
+{
+    return number;
+}
 
 #endif //CPP_SQUARE_H

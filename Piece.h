@@ -9,12 +9,12 @@
 #include <set>
 #include "Square.h"
 #include "Board.h"
-#define QUEEN "265B"
-#define KING "265A"
-#define BISHOP "265D"
-#define KNIGHT "265E"
-#define ROOK "265C"
-#define PAWN "265F"
+#define QUEEN "\u265B"
+#define KING "\u265A"
+#define BISHOP "\u265D"
+#define KNIGHT "\u265E"
+#define ROOK "\u265C"
+#define PAWN "\u265F"
 
 using namespace std;
 
@@ -35,14 +35,6 @@ class Piece
 
 public:
 
-    piece_type type;
-    piece_color color;
-    Square& square;
-    Board& board;
-    bool hasMoved;
-    int letter, number;  // board locations of piece be filed with the original spot
-
-
     /**
      * just an empty constuctor;
      */
@@ -52,20 +44,52 @@ public:
     */
     Piece(piece_type type, piece_color color, Square square);
 
-    /**
-    * @brief changes the pieces' current square.
-    */
-    void setSquare(Square square);
+//    /**
+//    * @brief changes the pieces' current square.
+//    */
+//    void setSquare(Square square);
 
     /**
     * @brief Gives a map of places piece can move to.
     */
     set<Square> ReturnSquaresInRange();
 
+	piece_type getType() const;
 
+	piece_color getColor() const;
 
+	Square &getSquare() const;
+
+	Board &getBoard() const;
+
+	bool isHasMoved() const;
+
+	int getLetter() const;
+
+	int getNumber() const;
+
+	void setType(piece_type type);
+
+	void setColor(piece_color color);
+
+	void setSquare(Square &square);
+
+	void setBoard(Board &board);
+
+	void setHasMoved(bool hasMoved);
+
+	void setLetter(int letter);
+
+	void setNumber(int number);
+
+	string pieceCode();
 private:
-
+	piece_type type;
+	piece_color color;
+    Square& square;
+    Board& board;
+    bool hasMoved;
+    int letter, number;  // board locations of piece be filed with the original spot
     /**
      * @brief returns the squares on diagonals from piece.
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)

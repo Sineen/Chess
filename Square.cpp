@@ -15,13 +15,13 @@ Square::Square(int letter, int number)
     this->letter = letter;
     this->number = number;
     this-> piece = nullptr;
-    this->isEmpty = true;
+    this->isEmptty = true;
 }
 
 void Square::setPiece(Piece *piece)
 {
     this->piece = piece;
-    isEmpty = false;
+    isEmptty = false;
 }
 
 Piece* Square::getPiece()
@@ -36,11 +36,11 @@ Piece* Square::getPiece()
 
 bool Square::isEmpty()
 {
-    return Square::isEmpty;
+    return Square::isEmptty;
 }
 
 void Square::deletePiece()
 {
-    isEmpty = true;
+    isEmptty = true;
     this->piece = nullptr;
 }

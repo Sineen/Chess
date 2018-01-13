@@ -8,17 +8,14 @@
 
 Piece::Piece(piece_type type, piece_color color, Square& square)
 {
-    this->type=type;
-    this->color=color;
-    this->square=square;
-    this->letter = square.letter;
-    this->number = square.number;
+    board = Board();
+    Piece::setSquare(square);
+	Piece::setType(type);
+	Piece::setColor(color);
+	Piece::setLetter(letter);
+    Piece::setNumber(number);
 }
 
-void Piece::setSquare(Square square)
-{
-
-}
 
 set<Square> Piece::ReturnSquaresInRange()
 {
@@ -194,4 +191,97 @@ void  Piece::checkAndAddIj(set<Square> &squares, int i, int j){
             squares.insert(board.squares[i][j]);
         }
     }
+}
+
+piece_type Piece::getType() const
+{
+    return type;
+}
+
+piece_color Piece::getColor() const
+{
+    return color;
+}
+
+Square &Piece::getSquare() const
+{
+    return square;
+}
+
+Board &Piece::getBoard() const
+{
+    return board;
+}
+
+bool Piece::isHasMoved() const
+{
+    return hasMoved;
+}
+
+int Piece::getLetter() const
+{
+    return letter;
+}
+
+int Piece::getNumber() const
+{
+    return number;
+}
+
+void Piece::setType(piece_type type)
+{
+    Piece::type = type;
+}
+
+void Piece::setColor(piece_color color)
+{
+    Piece::color = color;
+}
+
+void Piece::setSquare(Square &square)
+{
+    Piece::square = square;
+}
+
+void Piece::setBoard(Board &board)
+{
+    Piece::board = board;
+}
+
+void Piece::setHasMoved(bool hasMoved)
+{
+    Piece::hasMoved = hasMoved;
+}
+
+void Piece::setLetter(int letter)
+{
+    Piece::letter = letter;
+}
+
+void Piece::setNumber(int number)
+{
+    Piece::number = number;
+}
+
+string Piece::pieceCode()
+{
+	switch (getType())
+	{
+		//    queen, king, bishop, knight, rook, pawn
+
+		case queen:
+			return QUEEN;
+		case king:
+			return KING;
+		case bishop:
+			return BISHOP;
+		case knight:
+			return KNIGHT;
+		case rook:
+			return ROOK;
+		case pawn:
+			return PAWN;
+		default:
+			return nullptr;
+	}
 }
