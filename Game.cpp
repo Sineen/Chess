@@ -75,26 +75,28 @@ int Game::makeMove()
     if(board.isCheck(curPlayer)){ //todo make func w this sgnature
 
 
-        // todo - if in check - check all moves by piece
-        // get pices
-		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer); //todo make func and get
+        // get pieces
+		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer);
 
         // get moves for each
         for(Piece each :myPieces){
-            unordered_set<Square> legalDests = each.getSquaresCouldMove();
-            Square *piecesSquare = each.getSquare();
 
+            // get legal destinations for the Piece
+            unordered_set<Square> legalDests = each.getSquaresCouldMove();
+            // get the square for the piece
+            Square& *piecesSquare = each.getSquare();
+
+            // check all of the dests to see if they get us out of check
             for(Square possibleDest : legalDests ){
-                if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){ //todo do
+                if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){
                     quit =1;
                     break;
-                } //todo fix line
+                }
 
             }
             if (quit==1) break;
         }
 
-        // todo - if no good moves - other player won!
         if (quit == 0){
             switchPlayer();
             win();
@@ -111,7 +113,7 @@ int Game::makeMove()
         }
         // save original positions
         // todo small castle
-        
+
 
     }else if(nextMove == "o-o-o"){
         if (!board.CanLargeCastle(curPlayer)){
@@ -128,18 +130,8 @@ int Game::makeMove()
     Square src = board.stringToSquare(srcStr);
     Square dst = board.stringToSquare(dstStr);
 
-    // make sure source is not-empty and player color
-    if (src.isEmpty()) {return 1;}
-    Piece* playingPiece = src.getPiece();
-    if (src.getPiece()->getColor() != curPlayer) {return 1;}
+    if(!board.isLegal(src,dst,curPlayer)) return 1;
 
-    //make a list of places
-    unordered_set<Square> legalDestinations = playingPiece->getSquaresCouldMove();
-
-    //if illegal
-    if(legalDestinations.find(dst) == legalDestinations.end()){
-        return 1;
-    }
 
     // else move is legal movement - we must make sure it does not lead to check
     if (board.isCheck(src,dst,curPlayer)){

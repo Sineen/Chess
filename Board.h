@@ -87,6 +87,18 @@ public:
 
     void setLastDistination(const Square &lastDistination);
 
+
+
+    /**
+     *
+     * @param srcSquare the source square
+     * @param dstSquare  teh distenation square
+     * @param playerToCheck  the player making the move  which color
+     * @return  true if he had a peice in his suc square and the dst square was a legal move to it
+     */
+    bool isLegal(Square& src, Square& dst, piece_color playerToCheck);
+
+
 private:
 
     Square lastSource;
@@ -102,14 +114,6 @@ private:
     unordered_set<Square> returnPlayerLegalMoves(piece_color playerColor);
 
 
-	/**
-	 *
-	 * @param srcSquare the source square
-	 * @param dstSquare  teh distenation square
-	 * @param playerToCheck  the player making the move  which color
-	 * @return  true if he had a peice in his suc square and the dst square was a legal move to it
-	 */
-	bool isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck);
 };
 
 

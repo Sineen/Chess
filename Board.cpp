@@ -212,43 +212,22 @@ Square& Board::stringToSquare(string squareName)
 // todo CONSRUCION ZONE ===================================================================
 
 
-
-bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck)
+/**
+ * @brief Checks if a move is legal PHYSICALLY (no connection to check)
+ */
+bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
 {
-    if (srcSquare.isEmpty())
-    {
-        return false;
-    }
-    bool returnVal1 = false;
-    bool returnVal2 = false;
-    unordered_set<Piece> pieces = returnPlayerPices(playerToCheck);
-    //check if soruce actually has its own piece
-    for(auto &piece : pieces)
-    {
-        if (srcSquare.compareSquareTo(*(piece.getSquare())) && srcSquare.getPiece()->getColor() ==
-                                                               playerToCheck)
-        {
-            returnVal1 = true;
-            break;
-        }
-    }
-    // no need to continue to check if it was aleady false
-    if (returnVal1)
-    {
-        // src had a peice of the player and was fone
-        unordered_set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
 
-        // check if dst it a legal move to that piece
-        for(auto &squareMove : legalmoves)
-        {
-            if (dstSquare.compareSquareTo(squareMove))
-            {
-                returnVal2 = true;
-                break;
-            }
-        }
-    }
-    return (returnVal1 && returnVal2);
+    // make sure source is not-empty and player color
+    if (src.isEmpty()) {return false;}
+    Piece* playingPiece = src.getPiece();
+    if (src.getPiece()->getColor() != playerToCheck) return false;
+
+    //make a list of places
+    unordered_set<Square> legalDestinations = playingPiece->getSquaresCouldMove();
+
+    //if illegal
+    return !(legalDestinations.find(dst) == legalDestinations.end());
 }
 
 /**
@@ -298,20 +277,44 @@ bool Board::isCheck(piece_color PlayerToCheck){
 * @brief Return true if player (PlayerToCheck) is in check after move
  *       Should be called only if a move is otherwise legal
 */
-bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToCheck)
+bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
 {
-    piece_color  playerInTurn;
-    if (playerToCheck == white)
-    {
-        playerInTurn = black;
-    }
-    else
-    {
-        playerInTurn = white;
-    }
-    unordered_set<Square> legalMoves = returnPlayerLegalMoves(playerInTurn);
+    piece_color  enemyColor = (playerToCheck==white)? black: white;
+    bool retVal = false;
+    int kI=0,kJ=0;
 
-    // todo write
+    //do move
+    Move(src,dst);
+
+
+    // get enemy moves
+    unordered_set<Square> enemyDestinations = returnPlayerLegalMoves(enemyColor);
+
+    //find player king
+    for (int i = 0; i <8 ; ++i)
+    {
+        for (int j = 0; j <8 ; ++j)
+        {
+            if ((!squares[i][j].isEmpty()) &&
+                    (squares[i][j].getColor() == playerToCheck) &&
+                    (squares[i][j].getPiece()->getType() == king )){
+
+                kI=i;
+                kJ=j;
+
+            }
+        }
+    }
+
+    // check if player king is reachaBle
+    if (enemyDestinations.find(squares[kI][kJ]) != enemyDestinations.end()) retVal = true;
+
+    //undo move
+    UnMove();
+
+    //return Bool
+    return retVal;
+
 
 }
 
