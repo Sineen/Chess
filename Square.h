@@ -50,16 +50,12 @@ public:
 
     int getNumber() const;
 
+	bool compareSquareTo(Square square2);
+
 };
 
-int Square::getLetter() const
-{
-    return letter;
-}
 
-int Square::getNumber() const
-{
-    return number;
-}
+
+
 
 #endif //CPP_SQUARE_H
