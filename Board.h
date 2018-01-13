@@ -104,6 +104,7 @@ private:
     Square lastSource;
     Square lastDistination;
     bool undidMove = false;
+    bool lastPieceMoved;
 
     string pieceColorCode(piece_color color);
 

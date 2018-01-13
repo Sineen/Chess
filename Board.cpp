@@ -233,19 +233,18 @@ bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
 */
 void Board::Move (Square srcSquare, Square dstSquare)
 {
+    lastPieceMoved = srcSquare.getPiece()->isHasMoved();
     setLastDistination(dstSquare);
     setLastSource(srcSquare);
     if(!dstSquare.isEmpty())
     {
-//        //this if is like assert check if use assert
-//        if( color == dstSquare.getPiece()->getColor())
-//        {
-//            cerr << " some thing is wrong in islgall" << endl;
-//        }
         dstSquare.deletePiece();
-
     }
     dstSquare.setPiece(srcSquare.getPiece());
+    if (!lastPieceMoved)
+    {
+        dstSquare.getPiece()->setHasMoved(true);
+    }
 }
 
 /**
@@ -257,8 +256,8 @@ void Board::UnMove ()
     {
         lastSource.setPiece(lastDistination.getPiece());
         lastDistination.deletePiece();
+        lastSource.getPiece()->setHasMoved(lastPieceMoved);
     }
-
 }
 
 
