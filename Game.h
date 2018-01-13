@@ -40,9 +40,7 @@ public:
      */
     std::string setName(piece_color color);
 
-    std::string askForMove(piece_color color) const;
-
-    void win(piece_color color) const;
+    void win() const;
 
 private:
 
@@ -56,9 +54,13 @@ private:
      */
     void askForMove();
 
-    int Game::makeMove(string& move);
+    int Game::makeMove();
 
-    void Game::switchPlayer()
+    void Game::switchPlayer();
+
+    void Game::play();
+
+    int Game::moveCycle();
 
 
 

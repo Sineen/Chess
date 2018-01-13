@@ -7,6 +7,7 @@
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
+#define ILLEGAL "Illegal Move!" // todo change to requestef
 #define WIN "won!"
 
 using namespace std;
@@ -60,33 +61,61 @@ void Game::askForMove()
     cin >> nextMove;
 }
 
-void Game::win(piece_color color) const
+void Game::win() const
 {
     Board::printBoard();
-    cout << WIN << endl;
+    cout << getName(curPlayer)<< WIN << endl;
 }
 
-int Game::makeMove(string& move)
+int Game::makeMove()
 {
-
-
     Piece *oldSource, *oldDest;
 
-
+    int quit = 0;
     // todo check if in check
-                // todo - if in check at start - check all moves by piece
-                // todo - if no good moves - other player won!
-                // todo - if there is good moves - announce check!
+    if(5555){
 
 
-    if (move == "o-o"){
+        // todo - if in check - check all moves by piece
+        // get pices
+        set<Piece> myPieces = board.returnPlayerPices(curPlayer); //todo make func and get
+
+        // get moves for each
+        for(Piece each :myPieces){
+            set<Square> legalDests = each.ReturnSquaresInRange();
+
+            for(Square possibleDest:legalDests ){
+                if (! board.isCheck(AFTER MOVE)){ //todo do
+                    quit =1;
+                    break;
+                } //todo fix line
+
+            }
+            if (quit==1) break;
+        }
+
+        // todo - if no good moves - other player won!
+        if (quit == 0){
+            switchPlayer();
+            win();
+            return 100;
+        }
+        // todo - if there is good moves - announce check! and continue
+        else if(quit == 1){
+
+        }
+    }
+
+
+
+    if (nextMove == "o-o"){
         if (!board.CanSmallCastle(curPlayer)){
             return 1;
         }
         // save original positions
         // todo small castle
 
-    }else if(move == "o-o-o"){
+    }else if(nextMove == "o-o-o"){
         if (!board.CanLargeCastle(curPlayer)){
             return 1;
         }
@@ -95,8 +124,8 @@ int Game::makeMove(string& move)
 
     }
     //otherwise this is a regular, 4-char move
-    string srcStr = move.substr(0,1);
-    string dstStr = move.substr(2,3);
+    string srcStr = nextMove.substr(0,1);
+    string dstStr = nextMove.substr(2,3);
 
     Square& src = board(srcStr);
     Square& dst = board(dstStr);
@@ -115,15 +144,49 @@ int Game::makeMove(string& move)
     }
 
     // else move is legal movement - we must make sure it does not lead to check
+
+    //save old board
     oldSource = src.getPiece();
     oldDest = dst.getPiece();
 
     // do move
     //todo do move
 
-    if (board.isCheck())
+    // if not ok
+    if (board.isCheck()){
+        //todo undo move
+        return 1;
+    }
 
+    // if ok, were done.
+    return 0;
 
 }
 
+void Game::play()
+{
+    curPlayer = white;
+    int status = 0;
+    while (status == 0){
+        board.printBoard();   //todo check print
+        status = moveCycle();
+        switchPlayer();
+    }
+
+}
+
+int Game::moveCycle()
+{
+    askForMove();
+
+    int status = makeMove();
+    while(status == 1){
+        cout<< ILLEGAL;
+        status = makeMove();
+    }
+    if(status == 100){
+        return 1;
+    }
+    return 0;
+}
 
