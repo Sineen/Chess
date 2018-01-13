@@ -44,3 +44,25 @@ void Square::deletePiece()
     isEmptty = true;
     this->piece = nullptr;
 }
+
+int Square::getLetter() const
+{
+    return letter;
+}
+
+int Square::getNumber() const
+{
+    return number;
+}
+
+bool Square::compareSquareTo(Square square1)
+{
+	if ( square1.getLetter() == this->getLetter())
+	{
+		if(square1.getNumber() == this->getNumber())
+		{
+			return true;
+		}
+	}
+	return false;
+}

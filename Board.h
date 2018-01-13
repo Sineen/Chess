@@ -49,7 +49,7 @@ public:
      */
     void printBoard();
 
-    string backgroundColorCode(piece_color color);
+    string pieceColorCode(piece_color color);
 
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
@@ -87,6 +87,7 @@ private:
     */
     Square& square(string squareName);
 
+	bool isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck);
 };
 
 

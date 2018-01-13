@@ -99,7 +99,7 @@ void Board::printBoard()
             }
             else
             {
-                pieceColor = Board::backgroundColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
+                pieceColor = Board::pieceColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
 				pieceCodes = squares[i][j].getPiece()->pieceCode();
             }
 			//print the square
@@ -119,7 +119,7 @@ void Board::printBoard()
     }
 }
 
-string backgroundColorCode(piece_color color)
+string pieceColorCode(piece_color color)
 {
     if ( color == white)
     {
@@ -172,9 +172,53 @@ set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 * @brief Return true if player (PlayerToCheck) is in check after move
  *       Should be called only if a move is otherwise legal
 */
-bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck)
+bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToCheck)
 {
+	piece_color  playerInTurn;
+	if (playerToCheck == white)
+	{
+		playerInTurn = black;
+	}
+	else
+	{
+		playerInTurn = white;
+	}
+	set<Square> legalmoves = returnPlayerLegalMoves(playerInTurn);
 
+
+}
+
+bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck)
+{
+	bool returnVal1 = false;
+	bool returnVal2 = false;
+	set<Square> peiecesLocation = returnPlayerPices(playerToCheck);
+	//check if soruce actually has its own piece
+	for(auto &square : peiecesLocation)
+	{
+		if (srcSquare.compareSquareTo(square) && srcSquare.getPiece()->getColor() == playerToCheck)
+		{
+			returnVal1 = true;
+			break;
+		}
+	}
+	// no need to continue to check if it was aleady false
+	if (returnVal1)
+	{
+		// src had a peice of the player and was fone
+		set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
+
+		// check if dst it a legal move to that piece
+		for(auto &squareMove : legalmoves)
+		{
+			if (dstSquare.compareSquareTo(squareMove))
+			{
+				returnVal2 = true;
+				break;
+			}
+		}
+	}
+	return (returnVal1 && returnVal2);
 }
 
 /**
