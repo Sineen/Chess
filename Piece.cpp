@@ -113,7 +113,7 @@ set<Square> Piece::_getPawns()
     return squares;
 }
 
-set<Square> Piece::_getKnights(Board board)
+set<Square> Piece::_getKnights()
 {
     set<Square> squares = set<Square>();
 
@@ -137,7 +137,7 @@ set<Square> Piece::_getKnights(Board board)
     return squares;
 }
 
-set<Square> Piece::_getKing(Board board)
+set<Square> Piece::_getKing()
 {
     set<Square> squares = set<Square>();
     for (int i = -1; i <=1 ; ++i)
@@ -152,7 +152,7 @@ set<Square> Piece::_getKing(Board board)
 
 }
 
-set<Square> Piece::_getQueen(Board board)
+set<Square> Piece::_getQueen()
 {
     set<Square> squares = set<Square>();
     set<Square> rowPlaces = _getRook();
@@ -290,20 +290,24 @@ set<Square> Piece::getSquaresCouldMove()
 	switch (getType())
 	{
 		case queen:
-			squareCouldMoveTo = _getQueen(getBoard());
+			squareCouldMoveTo = _getQueen();
+			break;
 		case king:
-			squareCouldMoveTo = _getKing(getBoard());
+			squareCouldMoveTo = _getKing();
+			break;
 		case rook:
 			squareCouldMoveTo = _getRook();
+			break;
 		case bishop:
 			squareCouldMoveTo = _getBishop();
+			break;
 		case knight:
-			squareCouldMoveTo = _getKnights(getBoard());
+			squareCouldMoveTo = _getKnights();
+			break;
 		case pawn:
 			squareCouldMoveTo = _getPawns();
-
+			break;
 	}
-
 
 	return set<Square>();
 }

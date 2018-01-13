@@ -81,6 +81,43 @@ public:
 
 	set<Square> Piece::getSquaresCouldMove();
 
+	/**
+ 	 * @brief returns the squares on diagonals from piece.
+ 	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
+ 	 */
+	set<Square> _getBishop(){}
+
+	/**
+	 * @brief returns the squares on Rows from piece.
+	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
+	 */
+	set<Square> _getRook();
+
+	/**
+	 * @brief returns the squares available to pawns.
+	 */
+	set<Square> _getPawns();
+
+	/**
+	 * @brief returns the squares available to Knights.
+	 */
+	set<Square> _getKnights();
+
+	/**
+	 * @brief returns the squares available to King.
+	 */
+	set<Square> _getKing();
+
+	/**
+	 * @brief returns the squares available to Queen.
+	 */
+	set<Square> _getQueen();
+
+	int addAndCheckStop(set<Square> &squares, int i, int j);
+
+	void checkAndAddIj(set<Square> &squares, int i, int j);
+
+
 private:
 	piece_type type;
 	piece_color color;
@@ -88,41 +125,8 @@ private:
     Board& board;
     bool hasMoved;
     int letter, number;  // board locations of piece be filed with the original spot
-    /**
-     * @brief returns the squares on diagonals from piece.
-     *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
-     */
-    set<Square> _getBishop(){}
 
-    /**
-     * @brief returns the squares on Rows from piece.
-     *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
-     */
-    set<Square> _getRook();
 
-    /**
-     * @brief returns the squares available to pawns.
-     */
-    set<Square> _getPawns();
-
-    /**
-     * @brief returns the squares available to Knights.
-     */
-    set<Square> _getKnights(Board board);
-
-    /**
-     * @brief returns the squares available to King.
-     */
-    set<Square> _getKing(Board board);
-
-    /**
-     * @brief returns the squares available to Queen.
-     */
-    set<Square> _getQueen(Board board);
-
-    int addAndCheckStop(set<Square> &squares, int i, int j);
-
-    void checkAndAddIj(set<Square> &squares, int i, int j);
 };
 
 
