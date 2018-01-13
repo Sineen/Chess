@@ -25,25 +25,26 @@ set<Square> Piece::_getBishop()
     set<Square> squares = set<Square>();
 
     // do NE
-    for (int i = number, j = letter; i<8, j<8; ++i, ++j){
+    for (int i = number, j = letter; i < 8, j < 8; ++i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SE
-    for (int i = number, j = letter; i>=0, j<8; --i, ++j){
+    for (int i = number, j = letter; i >= 0, j < 8; --i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SW
-    for (int i = number, j = letter; i>=0, j>=0; --i, --j){
+    for (int i = number, j = letter; i >= 0, j >= 0; --i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do NW
-    for (int i = number, j = letter; i<8, j>=0; ++i, --j){
+    for (int i = number, j = letter; i < 8, j > =0; ++i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
+	//todo add if it hasn ot moved yet it can be switched between it and the king caselling
     return squares;
 }
 
@@ -52,22 +53,22 @@ set<Square> Piece::_getRook()
     set<Square> squares = set<Square>();
 
     // do N
-    for (int i = number, j = letter; i<8; ++i){
+    for (int i = number, j = letter; i < 8; ++i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do S
-    for (int i = number, j = letter; i>=0; --i){
+    for (int i = number, j = letter; i >= 0; --i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do E
-    for (int i = number, j = letter; j<8; ++j){
+    for (int i = number, j = letter; j < 8; ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do W
-    for (int i = number, j = letter; j>=0; --j){
+    for (int i = number, j = letter; j >= 0; --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
