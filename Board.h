@@ -66,13 +66,13 @@ private:
     /**
     * @brief Gives a set of all of a player's pieces
     */
-    set<Square> returnPlayerPices(piece_color playerColor);
+	unordered_set<Square> returnPlayerPices(piece_color playerColor);
 
     /**
     * @brief Gives a set of all of a player's legal Dest
      *      ( used to check if enemy can kill my king)
     */
-    set<Square> returnPlayerLegalMoves(piece_color playerColor);
+    unordered_set<Square> returnPlayerLegalMoves(piece_color playerColor);
 
     /**
     * @brief Return true if player (PlayerToCheck) is in check after move

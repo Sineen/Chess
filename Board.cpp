@@ -139,7 +139,7 @@ string pieceColorCode(piece_color color)
 /**
 * @brief Gives a set of all of a sqaures that contains the  player's pieces
 */
-set<Square> Board::returnPlayerPices(piece_color playerColor)
+unordered_set<Square> Board::returnPlayerPices(piece_color playerColor)
 {
 	set piecesOnBoard;
 	for (auto &square : squares)
@@ -156,11 +156,11 @@ set<Square> Board::returnPlayerPices(piece_color playerColor)
 * @brief Gives a set of all of a player's legal Dest
  *      ( used to check if enemy can kill my king)
 */
-set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
+unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
-	set<Square> squaresCanBeLandedOn;
-	set<Square> piecesPlayedHas = Board::returnPlayerPices(playerColor);
-	set<Square> temp;
+	unordered_set<Square> squaresCanBeLandedOn;
+	unordered_set<Square> piecesPlayedHas = Board::returnPlayerPices(playerColor);
+	unordered_set<Square> temp;
 	for(auto square : piecesPlayedHas)
 	{
 		Piece* piece = square.getPiece();
@@ -184,7 +184,7 @@ bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToChe
 	{
 		playerInTurn = white;
 	}
-	set<Square> legalmoves = returnPlayerLegalMoves(playerInTurn);
+	unordered_set<Square> legalmoves = returnPlayerLegalMoves(playerInTurn);
 
 
 }
@@ -193,7 +193,7 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 {
 	bool returnVal1 = false;
 	bool returnVal2 = false;
-	set<Square> peiecesLocation = returnPlayerPices(playerToCheck);
+	unordered_set<Square> peiecesLocation = returnPlayerPices(playerToCheck);
 	//check if soruce actually has its own piece
 	for(auto &square : peiecesLocation)
 	{
@@ -207,7 +207,7 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 	if (returnVal1)
 	{
 		// src had a peice of the player and was fone
-		set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
+		unordered_set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
 
 		// check if dst it a legal move to that piece
 		for(auto &squareMove : legalmoves)
