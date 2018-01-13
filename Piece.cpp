@@ -1,4 +1,5 @@
 
+#include <algorithm>
 #include "Piece.h"
 using namespace std;
 
@@ -19,7 +20,7 @@ set<Square> Piece::ReturnSquaresInRange()
     return set<Square>();
 }
 
-set<Square> Piece::_getDiag()
+set<Square> Piece::_getBishop()
 {
     set<Square> squares = set<Square>();
 
@@ -46,7 +47,7 @@ set<Square> Piece::_getDiag()
     return squares;
 }
 
-set<Square> Piece::_getRows()
+set<Square> Piece::_getRook()
 {
     set<Square> squares = set<Square>();
 
@@ -154,8 +155,8 @@ set<Square> Piece::_getKing(Board board)
 set<Square> Piece::_getQueen(Board board)
 {
     set<Square> squares = set<Square>();
-    set<Square> rowPlaces = _getRows();
-    set<Square> diagPlaces = _getDiag();
+    set<Square> rowPlaces = _getRook();
+    set<Square> diagPlaces = _getBishop();
     set_union(rowPlaces.begin(),rowPlaces.end(),diagPlaces.begin(),
               diagPlaces.end(), squares.end());
 
@@ -293,15 +294,16 @@ set<Square> Piece::getSquaresCouldMove()
 		case king:
 			squareCouldMoveTo = _getKing(getBoard());
 		case rook:
-			squareCouldMoveTo = set_union (_getRows().begin(), _getRows().end() , _getRows().begin() , _getRows().end());
+			squareCouldMoveTo = _getRook();
 		case bishop:
-			squareCouldMoveTo = _getDiag();
+			squareCouldMoveTo = _getBishop();
 		case knight:
 			squareCouldMoveTo = _getKnights(getBoard());
 		case pawn:
 			squareCouldMoveTo = _getPawns();
 
 	}
+
 
 	return set<Square>();
 }

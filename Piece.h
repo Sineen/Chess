@@ -7,10 +7,8 @@
 
 #include <map>
 #include <set>
-#include <algorithm>
 #include "Square.h"
 #include "Board.h"
-
 #define QUEEN "\u265B"
 #define KING "\u265A"
 #define BISHOP "\u265D"
@@ -18,6 +16,7 @@
 #define ROOK "\u265C"
 #define PAWN "\u265F"
 
+using namespace std;
 
 
 enum piece_type
@@ -80,8 +79,7 @@ public:
 
 	string pieceCode();
 
-	set<Square> getSquaresCouldMove();
-
+	set<Square> Piece::getSquaresCouldMove();
 
 private:
 	piece_type type;
@@ -94,13 +92,13 @@ private:
      * @brief returns the squares on diagonals from piece.
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
      */
-    set<Square> _getDiag(){}
+    set<Square> _getBishop(){}
 
     /**
      * @brief returns the squares on Rows from piece.
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
      */
-    set<Square> _getRows();
+    set<Square> _getRook();
 
     /**
      * @brief returns the squares available to pawns.
