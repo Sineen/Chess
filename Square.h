@@ -14,6 +14,7 @@ private:
     Piece* piece;
     int letter, number;
     bool isEmptty;
+    piece_color color;
 
 public:
 
@@ -43,6 +44,8 @@ public:
     void deletePiece();
 
     int getLetter() const;
+
+    piece_color getColor() const;
 
     int getNumber() const;
 

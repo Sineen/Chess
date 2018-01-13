@@ -35,10 +35,7 @@ class Piece
 
 public:
 
-    /**
-     * just an empty constuctor;
-     */
-    Piece();
+
     /**
     * @brief Contructor.
     */

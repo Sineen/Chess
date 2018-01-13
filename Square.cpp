@@ -11,6 +11,7 @@ Square::Square(int letter, int number)
     this->number = number;
     this-> piece = nullptr;
     this->isEmptty = true;
+    this->color = ((letter%2==0 && number%2==0) || (letter%2!=0 && number%2!=0) ) ? black: white;
 }
 
 void Square::setPiece(Piece *piece)
@@ -43,6 +44,11 @@ void Square::deletePiece()
 int Square::getLetter() const
 {
     return letter;
+}
+
+piece_color Square::getColor() const
+{
+    return color;
 }
 
 int Square::getNumber() const

@@ -7,13 +7,12 @@
 
 #include <iostream>
 #include "Board.h"
+#define W_TXT_RD_BK   "37;41"
 
 class Game
 {
 
 public:
-
-    std::string CurPlayer;
     Board board;
 
 
@@ -26,6 +25,7 @@ public:
     * @brief Driver.
     */
     void playGame();
+
 
     /**
      * this function is a getter for the players names
@@ -57,8 +57,6 @@ private:
     int makeMove();
 
     void switchPlayer();
-
-    void play();
 
     int moveCycle();
 

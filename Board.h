@@ -34,23 +34,34 @@ public:
     */
     int Move (Square srcSquare, Square dstSquare, piece_color color);
 
-//    /**
-//    * @brief Gives a map of legal destinations for a specific piece.
-//    */
-//    map ReturnPieceLegalMoves(Square srcSquare, piece_color color);
-
-    /**
-    * @brief Gives a map of legal destinations for a specific piece.
-    */
-    Square& strToSquare(string letterPair);
-
     /**
      * print the board
      */
     void printBoard();
 
+    /**
+    * @brief Returns the square corresponding to the letter code
+    */
+    Square& square(std::string squareName);
 
-	string pieceColorCode(piece_color color);
+    /**
+    * @brief Return true if player (PlayerToCheck) is in check after move
+    *       Should be called only if a move is otherwise legal
+    */
+    bool isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck);
+
+    /**
+    * @brief Return true if player (PlayerToCheck) is in check after move
+    *       Should be called only if a move is otherwise legal
+    */
+    bool isCheck(piece_color PlayerToCheck);
+
+    string pieceColorCode(piece_color color);
+
+    /**
+    * @brief Gives a set of all of a player's pieces
+    */
+    unordered_set<Piece> returnPlayerPices(piece_color playerColor);
 
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
@@ -64,29 +75,13 @@ public:
 private:
 
 
-    /**
-    * @brief Gives a set of all of a player's pieces
-    */
-	unordered_set<Square> returnPlayerPices(piece_color playerColor);
+
 
     /**
     * @brief Gives a set of all of a player's legal Dest
      *      ( used to check if enemy can kill my king)
     */
     unordered_set<Square> returnPlayerLegalMoves(piece_color playerColor);
-
-    /**
-    * @brief Return true if player (PlayerToCheck) is in check after move
-     *       Should be called only if a move is otherwise legal
-    */
-    bool isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck);
-
-
-
-    /**
-    * @brief Returns the square corresponding to the letter code
-    */
-    Square& square(std::string squareName);
 
 
 	/**

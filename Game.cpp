@@ -4,7 +4,6 @@
 
 #include <unordered_set>
 #include "Game.h"
-#include "Board.h"
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
@@ -18,7 +17,6 @@ Game::Game()
     whitePlayer = setName(white);
     blackPlayer = setName(black);
     curPlayer = white;
-    Board board();
 }
 
 string Game::setName(piece_color color)
@@ -65,14 +63,11 @@ void Game::askForMove()
 
 void Game::win()
 {
-    board.printBoard();
     cout << getName(curPlayer)<< WIN << endl;
 }
 
 int Game::makeMove()
 {
-    Piece *oldSource, *oldDest;
-
     int quit = 0;
     // todo check if in check
     if(board.isCheck(curPlayer)){ //todo make func w this sgnature
@@ -84,10 +79,11 @@ int Game::makeMove()
 
         // get moves for each
         for(Piece each :myPieces){
-            set<Square> legalDests = each.ReturnSquaresInRange();
+            unordered_set<Square> legalDests = each.getSquaresCouldMove();
+            Square *piecesSquare = each.getSquare();
 
-            for(Square possibleDest:legalDests ){
-                if (! board.isCheck(AFTER MOVE)){ //todo do
+            for(Square possibleDest : legalDests ){
+                if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){ //todo do
                     quit =1;
                     break;
                 } //todo fix line
@@ -102,10 +98,9 @@ int Game::makeMove()
             win();
             return 100;
         }
-        // todo - if there is good moves - announce check! and continue
-        else if(quit == 1){
 
-        }
+        // todo - otherwise.  there is good moves - announce check! and continue
+
     }
 
     if (nextMove == "o-o"){
@@ -127,8 +122,8 @@ int Game::makeMove()
     string srcStr = nextMove.substr(0,1);
     string dstStr = nextMove.substr(2,3);
 
-    Square src = board.strToSquare(srcStr);
-    Square dst = board.strToSquare(dstStr);
+    Square src = board.square(srcStr);
+    Square dst = board.square(dstStr);
 
     // make sure source is not-empty and player color
     if (src.isEmpty()) {return 1;}
@@ -136,34 +131,26 @@ int Game::makeMove()
     if (src.getPiece()->getColor() != curPlayer) {return 1;}
 
     //make a list of places
-    set<Square> legalDestinations = playingPiece->ReturnSquaresInRange();
+    unordered_set<Square> legalDestinations = playingPiece->getSquaresCouldMove();
 
     //if illegal
-    if(legalDestinations.find(dst)){
+    if(legalDestinations.find(dst) == legalDestinations.end()){
         return 1;
     }
 
     // else move is legal movement - we must make sure it does not lead to check
-
-    //save old board
-    oldSource = src.getPiece();
-    oldDest = dst.getPiece();
-
-    // do move
-    //todo do move
-
-    // if not ok
-    if (board.isCheck()){
-        //todo undo move
+    if (board.isCheck(src,dst,curPlayer)){
         return 1;
     }
+
+    //todo do move
 
     // if ok, were done.
     return 0;
 
 }
 
-void Game::play()
+void Game::playGame()
 {
     int status = 0;
     while (status == 0){
@@ -180,7 +167,7 @@ int Game::moveCycle()
 
     int status = makeMove();
     while(status == 1){
-        cout<< ILLEGAL;
+        cout << "\33[" << W_TXT_RD_BK  << ILLEGAL << " \33[0m\n";
         status = makeMove();
     }
     if(status == 100){
@@ -189,3 +176,14 @@ int Game::moveCycle()
     return 0;
 }
 
+int main()
+{
+    Game game;
+
+    game.playGame();
+
+    delete game;
+
+    return 0;
+
+}

@@ -64,18 +64,6 @@ int Board::Move (Square srcSquare, Square dstSquare, piece_color color)
 
 }
 
-//    /**
-//    * @brief Gives a map of legal destinations for a specific piece.
-//    */
-//    map ReturnPieceLegalMoves(Square srcSquare, piece_color color);
-
-/**
-* @brief Gives a map of legal destinations for a specific piece.
-*/
-Square& Board::strToSquare(string letterPair)
-{
-
-}
 
 /**
  * print the board
@@ -83,7 +71,7 @@ Square& Board::strToSquare(string letterPair)
 void Board::printBoard()
 {
     cout << FIRST_LINE << endl;
-    string backGround = BLUE_BACKGROUND;
+    string backGround;
     string pieceColor = ZERO_TEXT;
 	string pieceCodes = " ";
     for (int i = 8; i > 0 ; --i) // becasue we print from top to bottom so we need the last  line in the array
@@ -93,6 +81,7 @@ void Board::printBoard()
         cout << "\33[0;0m" << i <<" \33[0m" ;
         for (int j = 0; j < 8 ; ++j)
         {
+            backGround = squares[i][j].getColor() == black ? GREEN_BACKGROUND : BLUE_BACKGROUND;
             if (squares[i][j].isEmpty())
             {
                 pieceColor = ZERO_TEXT;
@@ -105,15 +94,6 @@ void Board::printBoard()
             }
 			//print the square
             cout << "\33[" << pieceColor << ";" << backGround << "m" << pieceCodes << " \33[0m";
-			 // switching the back ground color to make teh chekboard pattern
-            if ( backGround == BLUE_BACKGROUND)
-            {
-                backGround == GREEN_BACKGROUND;
-            }
-            else if ( backGround == GREEN_BACKGROUND)
-            {
-                backGround == BLUE_BACKGROUND;
-            }
         }
 		// print the number of the check in the last on the line  and goes to a new line
         cout << "\33[0;0m " << i <<"\33[0m" << endl;
@@ -139,14 +119,14 @@ string pieceColorCode(piece_color color)
 /**
 * @brief Gives a set of all of a sqaures that contains the  player's pieces
 */
-unordered_set<Square> Board::returnPlayerPices(piece_color playerColor)
+unordered_set<Piece> Board::returnPlayerPices(piece_color playerColor)
 {
-	unordered_set<Square> piecesOnBoard = unordered_set<Square>();
+	unordered_set<Piece> piecesOnBoard = unordered_set<Piece>();
 	for (auto &square : squares)
 	{
 		if(square->getPiece()->getColor() == playerColor)
 		{
-			piecesOnBoard.insert(square);
+			piecesOnBoard.insert(*(square->getPiece()));
 		}
 	}
 	return piecesOnBoard;
@@ -159,12 +139,11 @@ unordered_set<Square> Board::returnPlayerPices(piece_color playerColor)
 unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
 	unordered_set<Square> squaresCanBeLandedOn = unordered_set<Square>();
-	unordered_set<Square> piecesPlayedHas = Board::returnPlayerPices(playerColor);
+	unordered_set<Piece> piecesPlayedHas = Board::returnPlayerPices(playerColor);
 	unordered_set<Square> temp = unordered_set<Square>();
-	for(auto square : piecesPlayedHas)
+	for(Piece piece : piecesPlayedHas)
 	{
-		Piece* piece = square.getPiece();
-		temp = piece->getSquaresCouldMove();
+		temp = piece.getSquaresCouldMove();
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
 }
@@ -184,8 +163,9 @@ bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToChe
 	{
 		playerInTurn = white;
 	}
-	unordered_set<Square> legalmoves = returnPlayerLegalMoves(playerInTurn);
+	unordered_set<Square> legalMoves = returnPlayerLegalMoves(playerInTurn);
 
+    // todo write
 
 }
 
@@ -197,11 +177,12 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 	}
 	bool returnVal1 = false;
 	bool returnVal2 = false;
-	unordered_set<Square> peiecesLocation = returnPlayerPices(playerToCheck);
+	unordered_set<Piece> pieces = returnPlayerPices(playerToCheck);
 	//check if soruce actually has its own piece
-	for(auto &square : peiecesLocation)
+	for(auto &piece : pieces)
 	{
-		if (srcSquare.compareSquareTo(square) && srcSquare.getPiece()->getColor() == playerToCheck)
+		if (srcSquare.compareSquareTo(*(piece.getSquare())) && srcSquare.getPiece()->getColor() ==
+                                                                     playerToCheck)
 		{
 			returnVal1 = true;
 			break;
@@ -232,28 +213,24 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 bool Board::CanSmallCastle (piece_color PlayerToCheck)
 {
     int row = (PlayerToCheck == white)? 0: 7;
-    int k =4, s1 = 5, s2=6, r=7;
+    int kAndR[2] = {4,7};
+    int spaces[5] = {4,5,6,7};
     piece_color enemyColor = (PlayerToCheck==white) ? black : white;
 
-    // make sure king is there and unmoved
-    if (squares[row][k].isEmpty()) return false;
-    if (squares[row][k].getPiece()->getType() != king) return false;
-    if (squares[row][k].getPiece()->isHasMoved()) return false;
-
-    // make sure rook is there and unmoved
-    if (squares[row][r].isEmpty()) return false;
-    if (squares[row][r].getPiece()->getType() != rook) return false;
-    if (squares[row][r].getPiece()->isHasMoved()) return false;
+    for(int col: kAndR){
+        // make sure king and rook are there and unmoved
+        if (squares[row][col].isEmpty()) return false;
+        if (squares[row][col].getPiece()->getType() != king) return false;
+        if (squares[row][col].getPiece()->isHasMoved()) return false;
+    }
 
     //make sure all pices and spaces are not threaened
     unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
-    if ( !(threatened.find(squares[row][k]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][s1]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][s2]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][r]) == threatened.end()) ){ return false;}
+    for(int col: spaces){
+        if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
+    }
 
     return true;
-
 }
 
 /**
@@ -262,26 +239,23 @@ bool Board::CanSmallCastle (piece_color PlayerToCheck)
 bool Board::CanLargeCastle (piece_color PlayerToCheck)
 {
     int row = (PlayerToCheck == white)? 0: 7;
-    int k =4, s1 = 3, s2=2, s3=1, r=0;
+    int kAndR[2] = {4,0};
+    int spaces[5] = {4,3,2,1,0};
+
     piece_color enemyColor = (PlayerToCheck==white) ? black : white;
 
-    // make sure king is there and unmoved
-    if (squares[row][k].isEmpty()) return false;
-    if (squares[row][k].getPiece()->getType() != king) return false;
-    if (squares[row][k].getPiece()->isHasMoved()) return false;
-
-    // make sure rook is there and unmoved
-    if (squares[row][r].isEmpty()) return false;
-    if (squares[row][r].getPiece()->getType() != rook) return false;
-    if (squares[row][r].getPiece()->isHasMoved()) return false;
+    for(int col: kAndR){
+        // make sure king and rook are there and unmoved
+        if (squares[row][col].isEmpty()) return false;
+        if (squares[row][col].getPiece()->getType() != king) return false;
+        if (squares[row][col].getPiece()->isHasMoved()) return false;
+    }
 
     //make sure all pices and spaces are not threaened
     unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
-    if ( !(threatened.find(squares[row][k]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][s1]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][s2]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][s3]) == threatened.end()) ){ return false;}
-    if ( !(threatened.find(squares[row][r]) == threatened.end()) ){ return false;}
+    for(int col: spaces){
+        if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
+    }
 
     return true;
 }
