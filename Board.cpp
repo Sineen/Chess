@@ -141,7 +141,7 @@ string pieceColorCode(piece_color color)
 */
 unordered_set<Square> Board::returnPlayerPices(piece_color playerColor)
 {
-	set piecesOnBoard;
+	unordered_set<Square> piecesOnBoard = unordered_set<Square>();
 	for (auto &square : squares)
 	{
 		if(square->getPiece()->getColor() == playerColor)
@@ -158,9 +158,9 @@ unordered_set<Square> Board::returnPlayerPices(piece_color playerColor)
 */
 unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
-	unordered_set<Square> squaresCanBeLandedOn;
+	unordered_set<Square> squaresCanBeLandedOn = unordered_set<Square>();
 	unordered_set<Square> piecesPlayedHas = Board::returnPlayerPices(playerColor);
-	unordered_set<Square> temp;
+	unordered_set<Square> temp = unordered_set<Square>();
 	for(auto square : piecesPlayedHas)
 	{
 		Piece* piece = square.getPiece();

@@ -1,5 +1,6 @@
 
 #include <algorithm>
+#include <unordered_set>
 #include "Piece.h"
 using namespace std;
 
@@ -14,14 +15,9 @@ Piece::Piece(Board *board, Square *square, piece_type type, piece_color color)
 }
 
 
-set<Square> Piece::ReturnSquaresInRange()
+unordered_set<Square> Piece::_getBishop()
 {
-    return set<Square>();
-}
-
-set<Square> Piece::_getBishop()
-{
-    set<Square> squares = set<Square>();
+	unordered_set<Square> squares = unordered_set<Square>();
 
     // do NE
     for (int i = square->getNumber(), j = square->getLetter(); i < 8, j < 8; ++i, ++j){
@@ -47,9 +43,9 @@ set<Square> Piece::_getBishop()
     return squares;
 }
 
-set<Square> Piece::_getRook()
+unordered_set<Square> Piece::_getRook()
 {
-    set<Square> squares = set<Square>();
+    unordered_set<Square> squares = unordered_set<Square>();
 
     // do N
     for (int i = square->getNumber(), j = square->getLetter(); i < 8; ++i){
@@ -74,10 +70,10 @@ set<Square> Piece::_getRook()
     return squares;
 }
 
-set<Square> Piece::_getPawns()
+unordered_set<Square> Piece::_getPawns()
 {
 	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
-    set<Square> squares = set<Square>();
+	unordered_set<Square> squares = unordered_set<Square>();
     int i = square->getNumber(), j = square->getLetter();
 
     // if there is a row in front of pawn
@@ -112,9 +108,9 @@ set<Square> Piece::_getPawns()
     return squares;
 }
 
-set<Square> Piece::_getKnights()
+unordered_set<Square> Piece::_getKnights()
 {
-    set<Square> squares = set<Square>();
+    unordered_set<Square> squares = unordered_set<Square>();
 
     // i change 2, j change 1
     for (int i = -2; i <= 2 ; i += 4)
@@ -136,9 +132,9 @@ set<Square> Piece::_getKnights()
     return squares;
 }
 
-set<Square> Piece::_getKing()
+unordered_set<Square> Piece::_getKing()
 {
-    set<Square> squares = set<Square>();
+    unordered_set<Square> squares = unordered_set<Square>();
     for (int i = -1; i <= 1 ; ++i)
     {
         for (int j = -1; j <= 1 ; ++j)
@@ -151,18 +147,18 @@ set<Square> Piece::_getKing()
 
 }
 
-set<Square> Piece::_getQueen()
+unordered_set<Square> Piece::_getQueen()
 {
-    set<Square> squares = set<Square>();
-    set<Square> rowPlaces = _getRook();
-    set<Square> diagPlaces = _getBishop();
+    unordered_set<Square> squares = unordered_set<Square>();
+    unordered_set<Square> rowPlaces = _getRook();
+    unordered_set<Square> diagPlaces = _getBishop();
     set_union(rowPlaces.begin(),rowPlaces.end(),diagPlaces.begin(),
               diagPlaces.end(), squares.end());
 
     return squares;
 }
 
-int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
+int  Piece::addAndCheckStop(unordered_set<Square> &squares, int i, int j){
     if (board->squares[i][j].isEmpty()){
         squares.insert(board->squares[i][j]);
         return 0;
@@ -177,7 +173,7 @@ int  Piece::addAndCheckStop(set<Square> &squares, int i, int j){
     }
 }
 
-void  Piece::checkAndAddIj(set<Square> &squares, int i, int j){
+void  Piece::checkAndAddIj(unordered_set<Square> &squares, int i, int j){
     if (i >= 0 && i < 8 && j >= 0 && j <8 )
     {
         if (board->squares[i][j].isEmpty()){
@@ -265,9 +261,9 @@ string Piece::pieceCode()
 	}
 }
 
-set<Square> Piece::getSquaresCouldMove()
+unordered_set<Square> Piece::getSquaresCouldMove()
 {
-	set<Square> squareCouldMoveTo;
+	unordered_set<Square> squareCouldMoveTo;
 	switch (getType())
 	{
 		case queen:
@@ -290,5 +286,5 @@ set<Square> Piece::getSquaresCouldMove()
 			break;
 	}
 
-	return set<Square>();
+	return squareCouldMoveTo;
 }

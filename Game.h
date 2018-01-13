@@ -54,15 +54,13 @@ private:
      */
     void askForMove();
 
-    int Game::makeMove();
+    int makeMove();
 
-    void Game::switchPlayer();
+    void switchPlayer();
 
-    void Game::play();
+    void play();
 
-    int Game::moveCycle();
-
-
+    int moveCycle();
 
 };
 

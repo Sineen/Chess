@@ -2,6 +2,7 @@
 // Created by jherskow on 1/8/18.
 //
 
+#include <unordered_set>
 #include "Game.h"
 #include "Board.h"
 #define MAKE_MOVE ": Please enter your move:"
@@ -79,7 +80,7 @@ int Game::makeMove()
 
         // todo - if in check - check all moves by piece
         // get pices
-        set<Piece> myPieces = board.returnPlayerPices(curPlayer); //todo make func and get
+		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer); //todo make func and get
 
         // get moves for each
         for(Piece each :myPieces){
@@ -106,8 +107,6 @@ int Game::makeMove()
 
         }
     }
-
-
 
     if (nextMove == "o-o"){
         if (!board.CanSmallCastle(curPlayer)){

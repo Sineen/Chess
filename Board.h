@@ -49,6 +49,7 @@ public:
      */
     void printBoard();
 
+
     string pieceColorCode(piece_color color);
 
     /**

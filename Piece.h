@@ -44,11 +44,6 @@ public:
     */
     Piece(Board* board, Square* square,piece_type type, piece_color color);
 
-    /**
-    * @brief Gives a map of places piece can move to.
-    */
-    set<Square> ReturnSquaresInRange();
-
 	piece_type getType() const;
 
 	piece_color getColor() const;
@@ -71,7 +66,7 @@ public:
 
 	string pieceCode();
 
-	set<Square> getSquaresCouldMove();
+	unordered_set<Square> getSquaresCouldMove();
 
 
 private:
@@ -86,37 +81,37 @@ private:
   * @brief returns the squares on diagonals from piece.
   *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
   */
-	set<Square> _getBishop(){}
+	unordered_set<Square> _getBishop(){}
 
 	/**
 	 * @brief returns the squares on Rows from piece.
 	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
 	 */
-	set<Square> _getRook();
+	unordered_set<Square> _getRook();
 
 	/**
 	 * @brief returns the squares available to pawns.
 	 */
-	set<Square> _getPawns();
+	unordered_set<Square> _getPawns();
 
 	/**
 	 * @brief returns the squares available to Knights.
 	 */
-	set<Square> _getKnights();
+	unordered_set<Square> _getKnights();
 
 	/**
 	 * @brief returns the squares available to King.
 	 */
-	set<Square> _getKing();
+	unordered_set<Square> _getKing();
 
 	/**
 	 * @brief returns the squares available to Queen.
 	 */
-	set<Square> _getQueen();
+	unordered_set<Square> _getQueen();
 
-	int addAndCheckStop(set<Square> &squares, int i, int j);
+	int addAndCheckStop(unordered_set<Square> &squares, int i, int j);
 
-	void checkAndAddIj(set<Square> &squares, int i, int j);
+	void checkAndAddIj(unordered_set<Square> &squares, int i, int j);
 
 
 };
