@@ -42,7 +42,7 @@ public:
     /**
     * @brief Contructor.
     */
-    Piece(piece_type type, piece_color color, Square square);
+    Piece(Board& board, Square square, piece_type type, piece_color color, Square square);
 
     /**
     * @brief Gives a map of places piece can move to.
@@ -59,10 +59,6 @@ public:
 
 	bool isHasMoved() const;
 
-	int getLetter() const;
-
-	int getNumber() const;
-
 	void setType(piece_type type);
 
 	void setColor(piece_color color);
@@ -73,14 +69,9 @@ public:
 
 	void setHasMoved(bool hasMoved);
 
-	void setLetter(int letter);
-
-	void setNumber(int number);
-
 	string pieceCode();
 
 	set<Square> getSquaresCouldMove();
-
 
 
 private:
@@ -89,7 +80,7 @@ private:
     Square& square;
     Board& board;
     bool hasMoved;
-    int letter, number;  // board locations of piece be filed with the original spot
+//    int letter, number;  // board locations of piece be filed with the original spot
 
 	/**
   * @brief returns the squares on diagonals from piece.
