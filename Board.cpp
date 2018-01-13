@@ -71,7 +71,7 @@ int Board::Move (Square srcSquare, Square dstSquare, piece_color color)
 /**
 * @brief Gives a map of legal destinations for a specific piece.
 */
-Square Board::strToSquare(string letterPair)
+Square& Board::strToSquare(string letterPair)
 {
 
 }

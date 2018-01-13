@@ -4,7 +4,7 @@
 using namespace std;
 
 
-Piece::Piece(Board& board, Square& square, piece_type type, piece_color color, Square& square)
+Piece::Piece(Board &board, Square &square, piece_type type, piece_color color)
 {
 	Piece::setBoard(board);
     Piece::setSquare(square);

@@ -42,7 +42,7 @@ public:
     /**
     * @brief Contructor.
     */
-    Piece(Board& board, Square square, piece_type type, piece_color color, Square square);
+    Piece(Board& board, Square& square,piece_type type, piece_color color);
 
     /**
     * @brief Gives a map of places piece can move to.

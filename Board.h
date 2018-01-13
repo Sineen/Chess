@@ -42,7 +42,7 @@ public:
     /**
     * @brief Gives a map of legal destinations for a specific piece.
     */
-    Square strToSquare(string letterPair);
+    Square& strToSquare(string letterPair);
 
     /**
      * print the board
@@ -50,6 +50,16 @@ public:
     void printBoard();
 
     string backgroundColorCode(piece_color color);
+
+    /**
+* @brief Return true if player (PlayerToCheck) can perform a small castle
+*/
+    bool CanSmallCastle (piece_color PlayerToCheck);
+
+    /**
+    * @brief Return true if player (PlayerToCheck) can perform a large castle
+    */
+    bool CanLargeCastle (piece_color PlayerToCheck);
 private:
 
 
@@ -70,15 +80,7 @@ private:
     */
     bool isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck);
 
-    /**
-    * @brief Return true if player (PlayerToCheck) can perform a small castle
-    */
-    bool CanSmallCastle (piece_color PlayerToCheck);
 
-    /**
-    * @brief Return true if player (PlayerToCheck) can perform a large castle
-    */
-    bool CanLargeCastle (piece_color PlayerToCheck);
 
     /**
     * @brief Returns the square corresponding to the letter code

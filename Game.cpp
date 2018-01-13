@@ -16,7 +16,7 @@ Game::Game()
 {
     whitePlayer = setName(white);
     blackPlayer = setName(black);
-    Board board();
+    Board& board();
 }
 
 string Game::setName(piece_color color)
@@ -127,10 +127,12 @@ int Game::makeMove()
     string srcStr = nextMove.substr(0,1);
     string dstStr = nextMove.substr(2,3);
 
-    Square& src = board(srcStr);
-    Square& dst = board(dstStr);
+//    Square& src = board(srcStr);
+//	Square& dst = board(dstStr);
+	Square& src = board.strToSquare(srcStr);
+	Square& dst = board.strToSquare(srcStr);
 
-    // make sure source is not-empty and player color
+	// make sure source is not-empty and player color
     if (src.isEmpty()) {return 1;}
     Piece* playingPiece = src.getPiece();
     if (src.getPiece()->getColor() != curPlayer) {return 1;}
