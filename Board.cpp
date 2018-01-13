@@ -26,12 +26,12 @@ Board::Board()
 
     for (int j = 0; j < 8; ++j)
     {
-        squares[1][j].setPiece(new Piece(pawn,white,squares[2][j]));
+        squares[1][j].setPiece(new Piece(this, &squares[2][j],pawn,white));
     }
 
     for (int j = 0; j < 8; ++j)
     {
-        squares[6][j].setPiece(new Piece(pawn,black,squares[7][j]));
+        squares[6][j].setPiece(new Piece(this, &squares[7][j], pawn,black));
     }
 
     piece_type settingList[8] = {rook,knight,bishop,queen,king,bishop,knight,rook};
@@ -40,14 +40,14 @@ Board::Board()
     int i = 0;
     for (int j = 0; j < 8 ; ++j)
     {
-        squares[i][j].setPiece(new Piece(settingList[j],cur,squares[i][j]));
+        squares[i][j].setPiece(new Piece(this, &squares[i][j], settingList[j],cur));
     }
 
     cur = black;
     i = 7;
     for (int j = 0; j < 8; ++j)
     {
-        squares[i][j].setPiece(new Piece(settingList[j],cur,squares[i][j]));
+        squares[i][j].setPiece(new Piece(this, &squares[i][j], settingList[j],cur));
     }
 
 
