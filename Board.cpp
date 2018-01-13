@@ -158,7 +158,6 @@ bool Board::CanSmallCastle (piece_color PlayerToCheck)
     for(int col: kAndR){
         // make sure king and rook are there and unmoved
         if (squares[row][col].isEmpty()) return false;
-        if (squares[row][col].getPiece()->getType() != king) return false;
         if (squares[row][col].getPiece()->isHasMoved()) return false;
     }
 
@@ -185,7 +184,6 @@ bool Board::CanLargeCastle (piece_color PlayerToCheck)
     for(int col: kAndR){
         // make sure king and rook are there and unmoved
         if (squares[row][col].isEmpty()) return false;
-        if (squares[row][col].getPiece()->getType() != king) return false;
         if (squares[row][col].getPiece()->isHasMoved()) return false;
     }
 

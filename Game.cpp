@@ -72,14 +72,15 @@ int Game::makeMove()
     piece_color otherPlayer = (curPlayer==white)? black: white;
 
     // todo check if in check
-    if(board.isCheck(curPlayer)){ //todo make func w this sgnature
+    if(board.isCheck(curPlayer)){
 
 
         // get pieces
 		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer);
 
         // get moves for each
-        for(Piece each :myPieces){
+        for(Piece each :myPieces)
+        {
 
             // get legal destinations for the Piece
             unordered_set<Square> legalDests = each.getSquaresCouldMove();
@@ -89,12 +90,12 @@ int Game::makeMove()
             // check all of the dests to see if they get us out of check
             for(Square possibleDest : legalDests ){
                 if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){
-                    quit =1;
+                    quit = 1;
                     break;
                 }
 
             }
-            if (quit==1) break;
+            if (quit == 1) break;
         }
 
         if (quit == 0){
@@ -103,7 +104,8 @@ int Game::makeMove()
             return 100;
         }
 
-        // todo - otherwise.  there is good moves - announce check! and continue
+        // todo - otherwise.  there is good moves
+        // todo - announce check! and continue
 
     }
 
@@ -123,6 +125,8 @@ int Game::makeMove()
         //todo large castle
 
     }
+
+
     //otherwise this is a regular, 4-char move
     string srcStr = nextMove.substr(0,1);
     string dstStr = nextMove.substr(2,3);
