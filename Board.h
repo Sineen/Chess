@@ -32,13 +32,13 @@ public:
     * @brief Try to perform a move
     * @return 0 if move successful, 1 if illegal
     */
-    void Move (Square srcSquare, Square dstSquare, piece_color color);
+    void Move (Square srcSquare, Square dstSquare);
 
     /**
     * @brief Try to perform a move
     * @return 0 if move successful, 1 if illegal
     */
-    void UnMove (Square srcSquare, Square dstSquare, piece_color color);
+    void UnMove ();
 
     /**
      * print the board
@@ -77,9 +77,21 @@ public:
     * @brief Return true if player (PlayerToCheck) can perform a large castle
     */
     bool CanLargeCastle (piece_color PlayerToCheck);
+    // getters
+    const Square &getLastSource() const;
+
+    const Square &getLastDistination() const;
+
+    ///setters
+    void setLastSource(const Square &lastSource);
+
+    void setLastDistination(const Square &lastDistination);
+
 private:
 
-
+    Square lastSource;
+    Square lastDistination;
+    bool undidMove = false;
 
     string pieceColorCode(piece_color color);
 

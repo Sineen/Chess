@@ -252,19 +252,36 @@ bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToChec
 }
 
 /**
-* @brief Does a move, deleting pice if eaten
+* @brief Does a move, deleting piece if eaten
 */
-void Board::Move (Square srcSquare, Square dstSquare, piece_color color)
+void Board::Move (Square srcSquare, Square dstSquare)
 {
-    //todo do
+    setLastDistination(dstSquare);
+    setLastSource(srcSquare);
+    if(!dstSquare.isEmpty())
+    {
+//        //this if is like assert check if use assert
+//        if( color == dstSquare.getPiece()->getColor())
+//        {
+//            cerr << " some thing is wrong in islgall" << endl;
+//        }
+        dstSquare.deletePiece();
+
+    }
+    dstSquare.setPiece(srcSquare.getPiece());
 }
 
 /**
 * @brief Un-Does a move, reviving piece using variaBle lastPiece if one was eaten
 */
-void Board::UnMove (Square srcSquare, Square dstSquare, piece_color color)
+void Board::UnMove ()
 {
-    //todo do
+    if (!undidMove)
+    {
+        lastSource.setPiece(lastDistination.getPiece());
+        lastDistination.deletePiece();
+    }
+
 }
 
 
@@ -297,3 +314,24 @@ bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToChe
     // todo write
 
 }
+
+const Square &Board::getLastSource() const
+{
+    return lastSource;
+}
+
+const Square &Board::getLastDistination() const
+{
+    return lastDistination;
+}
+
+void Board::setLastSource(const Square &lastSource)
+{
+    Board::lastSource = lastSource;
+}
+
+void Board::setLastDistination(const Square &lastDistination)
+{
+    Board::lastDistination = lastDistination;
+}
+
