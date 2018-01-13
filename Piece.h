@@ -79,12 +79,22 @@ public:
 
 	string pieceCode();
 
-	set<Square> Piece::getSquaresCouldMove();
+	set<Square> getSquaresCouldMove();
+
+
+
+private:
+	piece_type type;
+	piece_color color;
+    Square& square;
+    Board& board;
+    bool hasMoved;
+    int letter, number;  // board locations of piece be filed with the original spot
 
 	/**
- 	 * @brief returns the squares on diagonals from piece.
- 	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
- 	 */
+  * @brief returns the squares on diagonals from piece.
+  *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
+  */
 	set<Square> _getBishop(){}
 
 	/**
@@ -116,15 +126,6 @@ public:
 	int addAndCheckStop(set<Square> &squares, int i, int j);
 
 	void checkAndAddIj(set<Square> &squares, int i, int j);
-
-
-private:
-	piece_type type;
-	piece_color color;
-    Square& square;
-    Board& board;
-    bool hasMoved;
-    int letter, number;  // board locations of piece be filed with the original spot
 
 
 };

@@ -77,6 +77,7 @@ set<Square> Piece::_getRook()
 
 set<Square> Piece::_getPawns()
 {
+	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
     set<Square> squares = set<Square>();
     int i = number, j=letter;
 

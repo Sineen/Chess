@@ -163,27 +163,7 @@ set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 	for(auto square : piecesPlayedHas)
 	{
 		Piece* piece = square.getPiece();
-		switch (piece->getType())
-		{
-			case queen:
-				temp = piece->_getQueen();
-				break;
-			case king:
-				temp = piece->_getKing();
-				break;
-			case rook:
-				temp = piece->_getRook();
-				break;
-			case bishop:
-				temp = piece->_getBishop();
-				break;
-			case knight:
-				temp = piece->_getKnights();
-				break;
-			case pawn:
-				temp = piece->_getPawns();
-				break;
-		}
+		temp = piece->getSquaresCouldMove();
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
 }
