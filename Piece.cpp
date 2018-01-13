@@ -6,7 +6,6 @@ using namespace std;
 
 Piece::Piece(piece_type type, piece_color color, Square& square)
 {
-    board = Board();
     Piece::setSquare(square);
 	Piece::setType(type);
 	Piece::setColor(color);
