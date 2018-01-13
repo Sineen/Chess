@@ -32,7 +32,13 @@ public:
     * @brief Try to perform a move
     * @return 0 if move successful, 1 if illegal
     */
-    int Move (Square srcSquare, Square dstSquare, piece_color color);
+    void Move (Square srcSquare, Square dstSquare, piece_color color);
+
+    /**
+    * @brief Try to perform a move
+    * @return 0 if move successful, 1 if illegal
+    */
+    void UnMove (Square srcSquare, Square dstSquare, piece_color color);
 
     /**
      * print the board
@@ -56,7 +62,6 @@ public:
     */
     bool isCheck(piece_color PlayerToCheck);
 
-    string pieceColorCode(piece_color color);
 
     /**
     * @brief Gives a set of all of a player's pieces
@@ -76,6 +81,7 @@ private:
 
 
 
+    string pieceColorCode(piece_color color);
 
     /**
     * @brief Gives a set of all of a player's legal Dest

@@ -69,6 +69,8 @@ void Game::win()
 int Game::makeMove()
 {
     int quit = 0;
+    piece_color otherPlayer = (curPlayer==white)? black: white;
+
     // todo check if in check
     if(board.isCheck(curPlayer)){ //todo make func w this sgnature
 
@@ -109,6 +111,7 @@ int Game::makeMove()
         }
         // save original positions
         // todo small castle
+        
 
     }else if(nextMove == "o-o-o"){
         if (!board.CanLargeCastle(curPlayer)){

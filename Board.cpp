@@ -55,14 +55,7 @@ Board::Board()
 }
 
 
-/**
-* @brief Try to perform a move
-* @return 0 if move successful, 1 if illegal
-*/
-int Board::Move (Square srcSquare, Square dstSquare, piece_color color)
-{
 
-}
 
 
 /**
@@ -89,7 +82,7 @@ void Board::printBoard()
             }
             else
             {
-                pieceColor = Board::pieceColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh stringToSquare
+                pieceColor = pieceColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh stringToSquare
 				pieceCodes = squares[i][j].getPiece()->pieceCode();
             }
 			//print the stringToSquare
@@ -100,7 +93,7 @@ void Board::printBoard()
     }
 }
 
-string pieceColorCode(piece_color color)
+string Board::pieceColorCode(piece_color color)
 {
     if ( color == white)
     {
@@ -148,64 +141,9 @@ unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 	}
 }
 
-/**
-* @brief Return true if player (PlayerToCheck) is in check after move
- *       Should be called only if a move is otherwise legal
-*/
-bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToCheck)
-{
-	piece_color  playerInTurn;
-	if (playerToCheck == white)
-	{
-		playerInTurn = black;
-	}
-	else
-	{
-		playerInTurn = white;
-	}
-	unordered_set<Square> legalMoves = returnPlayerLegalMoves(playerInTurn);
 
-    // todo write
 
-}
 
-bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck)
-{
-	if (srcSquare.isEmpty())
-	{
-		return false;
-	}
-	bool returnVal1 = false;
-	bool returnVal2 = false;
-	unordered_set<Piece> pieces = returnPlayerPices(playerToCheck);
-	//check if soruce actually has its own piece
-	for(auto &piece : pieces)
-	{
-		if (srcSquare.compareSquareTo(*(piece.getSquare())) && srcSquare.getPiece()->getColor() ==
-                                                                     playerToCheck)
-		{
-			returnVal1 = true;
-			break;
-		}
-	}
-	// no need to continue to check if it was aleady false
-	if (returnVal1)
-	{
-		// src had a peice of the player and was fone
-		unordered_set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
-
-		// check if dst it a legal move to that piece
-		for(auto &squareMove : legalmoves)
-		{
-			if (dstSquare.compareSquareTo(squareMove))
-			{
-				returnVal2 = true;
-				break;
-			}
-		}
-	}
-	return (returnVal1 && returnVal2);
-}
 
 /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
@@ -270,3 +208,92 @@ Square& Board::stringToSquare(string squareName)
     return squares[i][j];
 }
 
+
+// todo CONSRUCION ZONE ===================================================================
+
+
+
+bool Board::isLegal(Square srcSquare, Square dstSquare, piece_color playerToCheck)
+{
+    if (srcSquare.isEmpty())
+    {
+        return false;
+    }
+    bool returnVal1 = false;
+    bool returnVal2 = false;
+    unordered_set<Piece> pieces = returnPlayerPices(playerToCheck);
+    //check if soruce actually has its own piece
+    for(auto &piece : pieces)
+    {
+        if (srcSquare.compareSquareTo(*(piece.getSquare())) && srcSquare.getPiece()->getColor() ==
+                                                               playerToCheck)
+        {
+            returnVal1 = true;
+            break;
+        }
+    }
+    // no need to continue to check if it was aleady false
+    if (returnVal1)
+    {
+        // src had a peice of the player and was fone
+        unordered_set<Square> legalmoves = srcSquare.getPiece()->getSquaresCouldMove(); // all places this piece can move too
+
+        // check if dst it a legal move to that piece
+        for(auto &squareMove : legalmoves)
+        {
+            if (dstSquare.compareSquareTo(squareMove))
+            {
+                returnVal2 = true;
+                break;
+            }
+        }
+    }
+    return (returnVal1 && returnVal2);
+}
+
+/**
+* @brief Does a move, deleting pice if eaten
+*/
+void Board::Move (Square srcSquare, Square dstSquare, piece_color color)
+{
+    //todo do
+}
+
+/**
+* @brief Un-Does a move, reviving piece using variaBle lastPiece if one was eaten
+*/
+void Board::UnMove (Square srcSquare, Square dstSquare, piece_color color)
+{
+    //todo do
+}
+
+
+bool Board::isCheck(piece_color PlayerToCheck){
+    //todo make
+
+
+
+
+}
+
+
+/**
+* @brief Return true if player (PlayerToCheck) is in check after move
+ *       Should be called only if a move is otherwise legal
+*/
+bool Board::isCheck (Square srcSquare, Square dstSquare, piece_color playerToCheck)
+{
+    piece_color  playerInTurn;
+    if (playerToCheck == white)
+    {
+        playerInTurn = black;
+    }
+    else
+    {
+        playerInTurn = white;
+    }
+    unordered_set<Square> legalMoves = returnPlayerLegalMoves(playerInTurn);
+
+    // todo write
+
+}
