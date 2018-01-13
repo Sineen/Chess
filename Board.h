@@ -83,7 +83,7 @@ private:
     /**
     * @brief Returns the square corresponding to the letter code
     */
-    Square& square(string squareName);
+    Square& square(std::string squareName);
 
 };
 
