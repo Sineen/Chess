@@ -233,8 +233,8 @@ bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
 void Board::Move (Square srcSquare, Square dstSquare)
 {
     lastPieceMoved = srcSquare.getPiece()->isHasMoved();
-    setLastDistination(dstSquare);
-    setLastSource(srcSquare);
+    setLastDistination(&dstSquare);
+    setLastSource(&srcSquare);
     if(!dstSquare.isEmpty())
     {
         dstSquare.deletePiece();
