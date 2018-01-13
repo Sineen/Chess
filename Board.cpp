@@ -98,7 +98,7 @@ void Board::printBoard()
             }
             else
             {
-                pieceColor = Board::colorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
+                pieceColor = Board::backgroundColorCode(squares[i][j].getPiece()->getColor()); // get the color of teh piece in teh square
 				pieceCodes = squares[i][j].getPiece()->pieceCode();
             }
 			//print the square
@@ -118,7 +118,7 @@ void Board::printBoard()
     }
 }
 
-string colorCode(piece_color color)
+string backgroundColorCode(piece_color color)
 {
     if ( color == white)
     {
@@ -135,30 +135,38 @@ string colorCode(piece_color color)
 }
 
 /**
-* @brief Gives a map of all of a player's pieces
+* @brief Gives a set of all of a sqaures that contains the  player's pieces
 */
-set<Piece> Board::ReturnPlayerPices(piece_color playerColor)
+set<Square> Board::returnPlayerPices(piece_color playerColor)
 {
-	for (int i = 0; i < 8 ; ++i)
+	set piecesOnBoard;
+	for (auto &square : squares)
 	{
-		for (int j = 0; j < 8 ; ++j)
+		if(square->getPiece()->getColor() == playerColor)
 		{
-			if(squares[i][j].getPiece()->getColor() == playerColor)
-			{
-
-			}
+			piecesOnBoard.insert(square);
 		}
 	}
-
+	return piecesOnBoard;
 }
 
 /**
 * @brief Gives a set of all of a player's legal Dest
  *      ( used to check if enemy can kill my king)
 */
-set<Square> Board::ReturnPlayerLegalMoves(piece_color playerColor)
+set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
-
+	set squaresCanBeLandedOn;
+	set piecesPlayedHas = Board::returnPlayerPices(playerColor);
+	for(auto &square : piecesPlayedHas)
+	{
+		piece_type piece = square.getPiece().getType();
+		switch (piece)
+		{
+			case queen:
+				squaresCanBeLandedOn.insert();
+		}
+	}
 }
 
 /**

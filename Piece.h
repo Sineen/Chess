@@ -44,11 +44,6 @@ public:
     */
     Piece(piece_type type, piece_color color, Square square);
 
-//    /**
-//    * @brief changes the pieces' current square.
-//    */
-//    void setSquare(Square square);
-
     /**
     * @brief Gives a map of places piece can move to.
     */
@@ -83,6 +78,7 @@ public:
 	void setNumber(int number);
 
 	string pieceCode();
+
 private:
 	piece_type type;
 	piece_color color;
@@ -101,7 +97,6 @@ private:
      *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
      */
     set<Square> _getRows();
-
 
     /**
      * @brief returns the squares available to pawns.
@@ -122,7 +117,6 @@ private:
      * @brief returns the squares available to Queen.
      */
     set<Square> _getQueen(Board board);
-
 
     int addAndCheckStop(set<Square> &squares, int i, int j);
 
