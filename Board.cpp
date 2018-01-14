@@ -141,6 +141,7 @@ unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerLegal
 		temp = piece.getPiece()->getSquaresCouldMove();
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
+    return squaresCanBeLandedOn;
 }
 
 
