@@ -10,7 +10,7 @@
 #define BLACK_NAME "Enter black player name:"
 #define CHECK "\33[37;41mCheck!\33[0m"
 #define ILLEGAL "\33[37;41millegal move\33[0m"
-#define WIN "won!"
+#define WIN " won!"
 
 using namespace std;
 

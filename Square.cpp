@@ -5,10 +5,10 @@
 #include "Square.h"
 
 
-Square::Square(int letter, int number)
+Square::Square(int number, int letter)
 {
     this->letter = letter;
-    this->number = number;
+    this->number = number; //todo check
     this-> piece = nullptr;
     this->isEmptty = true;
     this->color = ((letter%2==0 && number%2==0) || (letter%2!=0 && number%2!=0) ) ? black: white;
