@@ -77,20 +77,27 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
     int i = square->getNumber(), j = square->getLetter();
     int ahead = (color==white) ? i+1:i-1;
 
-    // if there is a row in front of pawn
-    if(ahead!=-1 && ahead!=8){
+    // if there is an existing row in front of pawn
+    if(ahead>=0 && ahead<8){
 
         //add space if empty
         if (board->squares[ahead][j].isEmpty()){
             squares.insert(board->squares[i][j]);
-        }
 
-        //if another row exists
-        if(!hasMoved){
-            // add space if empty
-            ahead = (color==white) ? ahead+1:ahead-1;
-            if (board->squares[ahead][j].isEmpty()){
-                squares.insert(board->squares[i][j]);
+            //if unmoved, check additional row
+            if(!hasMoved){
+
+                ahead = (color==white) ? ahead+1:ahead-1;
+
+                //if row exists
+                if(ahead>=0 && ahead<8)
+                {
+                    // add space if empty
+                    if (board->squares[ahead][j].isEmpty())
+                    {
+                        squares.insert(board->squares[i][j]);
+                    }
+                }
             }
         }
 
@@ -100,9 +107,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
                 if(board->squares[ahead][j+1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j+1]);
                 }
-
             }
-
         }
 
         // if W diagonal exists and is occupied by enemy, add it
@@ -170,14 +175,16 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getQueen()
 
 int  Piece::addAndCheckStop(unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j){
     if (board->squares[i][j].isEmpty()){
+        // this is an empty spot, add and continue
         squares.insert(board->squares[i][j]);
         return 0;
     }
     else if (board->squares[i][j].getPiece()->color != color ){
+        // this is an enemy pice, add and stop
         squares.insert(board->squares[i][j]);
         return 1;
     }
-    else // this is a friendly piece
+    else // this is a friendly piece, stop
     {
         return 1;
     }
