@@ -51,7 +51,7 @@ public:
     * @brief Try to perform a move
     * @return 0 if move successful, 1 if illegal
     */
-    void move(Square srcSquare, Square dstSquare);
+    void move(Square& srcSquare, Square& dstSquare);
 
     /**
     * @brief Try to perform a move
@@ -67,13 +67,13 @@ public:
     /**
     * @brief Returns the square corresponding to the letter code
     */
-    Square& stringToSquare(std::string squareName);
+    Square& stringToSquare(std::string& squareName);
 
     /**
     * @brief Return true if player (PlayerToCheck) is in check after move
     *       Should be called only if a move is otherwise legal
     */
-    bool isCheck (Square srcSquare, Square dstSquare, piece_color PlayerToCheck);
+    bool isCheck (Square& src, Square& dst, piece_color PlayerToCheck);
 
     /**
     * @brief Return true if player (PlayerToCheck) is in check after move

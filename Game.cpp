@@ -8,6 +8,7 @@
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
+#define CHECK "\33[37;41mCheck!\33[0m"
 #define ILLEGAL "illegal move"
 #define WIN "won!"
 
@@ -72,7 +73,7 @@ int Game::makeMove()
     int quit = 0;
     piece_color otherPlayer = (curPlayer==white)? black: white;
 
-    // todo check if in check
+    // if in check
     if(board.isCheck(curPlayer)){
 
 
@@ -105,8 +106,9 @@ int Game::makeMove()
             return 100;
         }
 
-        // todo - otherwise.  there is good moves
-        // todo - announce check! and continue
+        // there are good moves
+        // announce check! and continue
+        cout  << CHECK << endl;
 
     }
 
@@ -168,7 +170,7 @@ int Game::moveCycle()
 
     int status = makeMove();
     while(status == 1){
-        cout << BEGIN_LINE << WHITE_TEXT << ";" << RED_BACKGROUND << ILLEGAL << END_LINE << endl;
+        cout <<  ILLEGAL << endl;
         status = makeMove();
     }
     if(status == 100){
