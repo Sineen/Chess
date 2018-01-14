@@ -23,8 +23,6 @@ Board::Board()
         }
     }
 
-    squares[4][4].setPiece(new Piece(this, &squares[4][4], rook,white));
-
     for (int j = 0; j < 8; ++j)
     {
         squares[1][j].setPiece(new Piece(this, &squares[1][j],pawn,white));
