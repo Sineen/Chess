@@ -8,6 +8,8 @@
 #include <unordered_set>
 #include "Board.h"
 
+using namespace std;
+
 /**
 * @brief Contructor. - sets the board with pieces
 */
@@ -244,6 +246,19 @@ void Board::move(Square& srcSquare, Square& dstSquare)
     if (!lastPieceMoved)
     {
         dstSquare.getPiece()->setHasMoved(true);
+    }
+
+    // pawn promotion
+    Piece *movingPiece = dstSquare.getPiece();
+
+    if(movingPiece->getColor() == white &&
+            movingPiece->getType()== pawn &&
+            dstSquare.getNumber() == 7){
+        movingPiece->setType(queen);
+    }else if(movingPiece->getColor() == black &&
+                 movingPiece->getType()== pawn &&
+                 dstSquare.getNumber() == 0){
+        movingPiece->setType(queen);
     }
 }
 

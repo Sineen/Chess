@@ -29,13 +29,13 @@ private:
     bool undidMove = false;
     bool lastPieceMoved;
 
-    string pieceColorCode(piece_color color);
+    std::string pieceColorCode(piece_color color);
 
     /**
     * @brief Gives a set of all of a player's legal Dest
      *      ( used to check if enemy can kill my king)
     */
-    unordered_set<Square , squareHasher , squareComparator> returnPlayerLegalMoves(piece_color playerColor);
+    std::unordered_set<Square , squareHasher , squareComparator> returnPlayerLegalMoves(piece_color playerColor);
 
 public:
 
@@ -85,7 +85,7 @@ public:
     /**
     * @brief Gives a set of all of a player's pieces
     */
-    unordered_set<Square , squareHasher , squareComparator> returnPlayerPices(piece_color playerColor);
+    std::unordered_set<Square , squareHasher , squareComparator> returnPlayerPices(piece_color playerColor);
 
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle

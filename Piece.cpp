@@ -73,21 +73,32 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getRook()
 unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
 {
 	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
+
 	unordered_set<Square , squareHasher , squareComparator> squares;
     int i = square->getNumber(), j = square->getLetter();
+    int ahead = (color==white) ? i+1:i-1;
 
     // if there is a row in front of pawn
-    if(i<7){
+    if(ahead!=-1 && ahead!=8){
 
         //add space if empty
-        if (board->squares[i+1][j].isEmpty()){
+        if (board->squares[ahead][j].isEmpty()){
             squares.insert(board->squares[i][j]);
         }
 
-        // if NE diagonal exists and is occupied by enemy, add it
+        //if another row exists
+        if(!hasMoved){
+            // add space if empty
+            ahead = (color==white) ? ahead+1:ahead-1;
+            if (board->squares[ahead][j].isEmpty()){
+                squares.insert(board->squares[i][j]);
+            }
+        }
+
+        // if E diagonal exists and is occupied by enemy, add it
         if(j<7){
-            if(!board->squares[i+1][j+1].isEmpty()){
-                if(!board->squares[i+1][j+1].getPiece()->color != color){
+            if(!board->squares[ahead][j+1].isEmpty()){
+                if(!board->squares[ahead][j+1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j+1]);
                 }
 
@@ -95,10 +106,10 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
 
         }
 
-        // if NW diagonal exists and is occupied by enemy, add it
+        // if W diagonal exists and is occupied by enemy, add it
         if(j>0){
-            if(!board->squares[i+1][j-1].isEmpty()){
-                if(!board->squares[i+1][j-1].getPiece()->color != color){
+            if(!board->squares[ahead][j-1].isEmpty()){
+                if(!board->squares[ahead][j-1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j-1]);
                 }
             }
