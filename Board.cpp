@@ -46,11 +46,7 @@ Board::Board()
     {
         squares[i][j].setPiece(new Piece(this, &squares[i][j], settingList[j],cur));
     }
-
-
 }
-
-
 
 
 
@@ -146,7 +142,7 @@ unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
 */
-bool Board::CanSmallCastle (piece_color PlayerToCheck)
+bool Board::smallCastle(piece_color PlayerToCheck)
 {
     int row = (PlayerToCheck == white)? 0: 7;
     int kAndR[2] = {4,7};
@@ -165,13 +161,18 @@ bool Board::CanSmallCastle (piece_color PlayerToCheck)
         if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
     }
 
+    // move rook to final
+    move(squares[row][7], squares[row][5]);
+    // move king to final
+    move(squares[row][4], squares[row][6]);
+
     return true;
 }
 
 /**
 * @brief Return true if player (PlayerToCheck) can perform a large castle
 */
-bool Board::CanLargeCastle (piece_color PlayerToCheck)
+bool Board::largeCastle(piece_color PlayerToCheck)
 {
     int row = (PlayerToCheck == white)? 0: 7;
     int kAndR[2] = {4,0};
@@ -190,6 +191,11 @@ bool Board::CanLargeCastle (piece_color PlayerToCheck)
     for(int col: spaces){
         if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
     }
+
+    // move rook to final
+    move(squares[row][0], squares[row][3]);
+    // move king to final
+    move(squares[row][4], squares[row][2]);
 
     return true;
 }
@@ -229,7 +235,7 @@ bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
 /**
 * @brief Does a move, deleting piece if eaten
 */
-void Board::Move (Square srcSquare, Square dstSquare)
+void Board::move(Square srcSquare, Square dstSquare)
 {
     lastPieceMoved = srcSquare.getPiece()->isHasMoved();
     setLastDistination(&dstSquare);
@@ -276,10 +282,8 @@ bool Board::isCheck(piece_color playerToCheck){
             if ((!squares[i][j].isEmpty()) &&
                 (squares[i][j].getColor() == playerToCheck) &&
                 (squares[i][j].getPiece()->getType() == king )){
-
                 kI=i;
                 kJ=j;
-
             }
         }
     }
@@ -300,7 +304,7 @@ bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
     bool retVal = false;
 
     //do move
-    Move(src,dst);
+    move(src, dst);
 
     //check if check
     retVal = isCheck(playerToCheck);
