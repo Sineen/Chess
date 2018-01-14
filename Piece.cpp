@@ -20,23 +20,26 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getBishop()
 {
 	unordered_set<Square , squareHasher , squareComparator> squares;
 
+    int number =square->getNumber();
+    int letter= square->getLetter();
+
     // do NE
-    for (int i = square->getNumber(), j = square->getLetter(); i < 8 && j < 8; ++i, ++j){
+    for (int i = number+1, j = letter+1; i < 8 && j < 8; ++i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SE
-    for (int i = square->getNumber(), j = square->getLetter(); i >= 0 && j < 8; --i, ++j){
+    for (int i = number-1, j = letter+1; i >= 0 && j < 8; --i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SW
-    for (int i = square->getNumber(), j = square->getLetter(); i >= 0 && j >= 0; --i, --j){
+    for (int i = number-1, j = letter-1; i >= 0 && j >= 0; --i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do NW
-    for (int i = square->getNumber(), j = square->getLetter(); i < 8 && j >= 0; ++i, --j){
+    for (int i = number+1, j = letter-1; i < 8 && j >= 0; ++i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
@@ -47,23 +50,26 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getRook()
 {
     unordered_set<Square , squareHasher , squareComparator> squares;
 
+    int number =square->getNumber();
+    int letter= square->getLetter();
+
     // do N
-    for (int i = square->getNumber(), j = square->getLetter(); i < 8; ++i){
+    for (int i = number+1, j = letter; i < 8; ++i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do S
-    for (int i = square->getNumber(), j = square->getLetter(); i >= 0; --i){
+    for (int i = number-1, j = letter; i >= 0; --i){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do E
-    for (int i = square->getNumber(), j = square->getLetter(); j < 8; ++j){
+    for (int i = number, j = letter+1; j < 8; ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do W
-    for (int i = square->getNumber(), j = square->getLetter(); j >= 0; --j){
+    for (int i = number, j = letter-1; j >= 0; --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
