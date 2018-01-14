@@ -243,6 +243,7 @@ void Board::move(Square& srcSquare, Square& dstSquare)
         dstSquare.deletePiece();
     }
     dstSquare.setPiece(srcSquare.getPiece());
+    dstSquare.getPiece()->setSquare(&dstSquare);
     if (!lastPieceMoved)
     {
         dstSquare.getPiece()->setHasMoved(true);
@@ -272,6 +273,7 @@ void Board::UnMove ()
         lastSource->setPiece(lastDistination->getPiece());
         lastDistination->deletePiece();
         lastSource->getPiece()->setHasMoved(lastPieceMoved);
+        lastSource->getPiece()->setSquare(lastSource);
     }
 }
 
