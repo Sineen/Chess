@@ -65,6 +65,7 @@ void Game::askForMove()
 
 void Game::win()
 {
+    board.printBoard();
     cout << getName(curPlayer)<< WIN << endl;
 }
 
@@ -88,6 +89,9 @@ int Game::makeMove()
             cout  << CHECK << endl;
         }
     }
+
+    //get move
+    askForMove();
 
     // check if castle
     if (nextMove == "o-o"){
@@ -143,13 +147,11 @@ void Game::playGame()
 
 int Game::moveCycle()
 {
-    askForMove();
 
     int status = makeMove();
     while(status == 1){
         cout <<  ILLEGAL << endl;
         board.printBoard();
-        askForMove();
         status = makeMove();
     }
     if(status == 100){
