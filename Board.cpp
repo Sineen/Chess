@@ -111,16 +111,19 @@ string Board::pieceColorCode(piece_color color)
 unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerPices(piece_color playerColor)
 {
 	unordered_set<Square , squareHasher , squareComparator> piecesOnBoard = unordered_set<Square , squareHasher , squareComparator>();
-	for (auto &square : squares)
+	for (auto &squarsRow : squares)
 	{
-        if (!square->isEmpty())
+        for(auto & square : squarsRow)
         {
-		    if(square->getPiece()->getColor() == playerColor)
-		    {
-			    piecesOnBoard.insert(*square);
-		    }
-        }
-	}
+            if (!square.isEmpty())
+            {
+		        if(square.getPiece()->getColor() == playerColor)
+		        {
+			        piecesOnBoard.insert(square);
+		        }
+            }
+	    }
+    }
 	return piecesOnBoard;
 }
 
