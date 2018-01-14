@@ -65,6 +65,7 @@ void Game::askForMove()
 
 void Game::win()
 {
+    board.printBoard();
     cout << getName(curPlayer)<< WIN << endl;
 }
 
