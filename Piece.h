@@ -16,9 +16,6 @@
 #define ROOK "\u265C"
 #define PAWN "\u265F"
 
-using namespace std;
-
-
 enum piece_type
 {
     queen, king, bishop, knight, rook, pawn
@@ -46,37 +43,37 @@ private:
   * @brief returns the squares on diagonals from piece.
   *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
   */
-	unordered_set<Square , squareHasher , squareComparator> _getBishop(){}
+	std::unordered_set<Square , squareHasher , squareComparator> _getBishop(){}
 
 	/**
 	 * @brief returns the squares on Rows from piece.
 	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
 	 */
-	unordered_set<Square , squareHasher , squareComparator> _getRook();
+    std::unordered_set<Square , squareHasher , squareComparator> _getRook();
 
 	/**
 	 * @brief returns the squares available to pawns.
 	 */
-	unordered_set<Square , squareHasher , squareComparator> _getPawns();
+    std::unordered_set<Square , squareHasher , squareComparator> _getPawns();
 
 	/**
 	 * @brief returns the squares available to Knights.
 	 */
-	unordered_set<Square , squareHasher , squareComparator> _getKnights();
+    std::unordered_set<Square , squareHasher , squareComparator> _getKnights();
 
 	/**
 	 * @brief returns the squares available to King.
 	 */
-	unordered_set<Square , squareHasher , squareComparator> _getKing();
+    std::unordered_set<Square , squareHasher , squareComparator> _getKing();
 
 	/**
 	 * @brief returns the squares available to Queen.
 	 */
-	unordered_set<Square , squareHasher , squareComparator> _getQueen();
+    std::unordered_set<Square , squareHasher , squareComparator> _getQueen();
 
-	int addAndCheckStop(unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j);
+	int addAndCheckStop(std::unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j);
 
-	void checkAndAddIj(unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j);
+	void checkAndAddIj(std::unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j);
 
 
 public:
@@ -125,13 +122,13 @@ public:
 	 *
 	 * @return the string with  breakin the beging for each piece it returnes the number that would print the picture of that piece
 	 */
-	string pieceCode();
+    std::string pieceCode();
 
 	/**
 	 *
 	 * @return a set of squares that a specific piece can move too
 	 */
-	unordered_set<Square , squareHasher , squareComparator> getSquaresCouldMove();
+    std::unordered_set<Square , squareHasher , squareComparator> getSquaresCouldMove();
 
 };
 

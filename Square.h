@@ -57,7 +57,7 @@ struct squareHasher
 {
     std::size_t operator()(const Square & square) const
     {
-        return (hash<int>()(square.getLetter()) ^ (hash<int>()(square.getNumber()))) ;
+        return (std::hash<int>()(square.getLetter()) ^ (std::hash<int>()(square.getNumber()))) ;
     }
 };
 
