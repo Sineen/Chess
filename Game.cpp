@@ -174,20 +174,16 @@ int main()
 
 bool Game::seeIfCheckmate()
 {
-///checged
-
     // get pieces
     unordered_set<Square, squareHasher, squareComparator> myPieces = board.returnPlayerPices(curPlayer);
-
+    unordered_set<Square , squareHasher , squareComparator> legalDests;
     // get moves for each
-    for(Square each :myPieces)
+    for(Square each : myPieces)
     {
-
         // get legal destinations for the Piece
-        unordered_set<Square , squareHasher , squareComparator> legalDests = each.getPiece()->getSquaresCouldMove();
+        legalDests = each.getPiece()->getSquaresCouldMove();
         // get the square for the piece
 //        Square& *piecesSquare = each.getSquare();
-
         // check all of the dests to see if they get us out of check
         for(Square possibleDest : legalDests )
         {
@@ -196,6 +192,7 @@ bool Game::seeIfCheckmate()
                 return false;
             }
         }
+        legalDests.clear();
     }
 
     return true;
