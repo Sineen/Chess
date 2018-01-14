@@ -60,7 +60,6 @@ void Board::printBoard()
     string pieceColor = ZERO_TEXT;
 	string pieceCodes = " ";
     for (int i = 8; i > 0 ; --i) // becasue we print from top to bottom so we need the last  line in the array
-		// todo ask josh how he filled it in
     {
 		// prints thenumber in the beging of the line
         cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << i <<" "<< END_LINE ;
@@ -203,7 +202,7 @@ bool Board::largeCastle(piece_color PlayerToCheck)
 /**
 * @brief Returns the square corresponding to the letter code
 */
-Square& Board::stringToSquare(string squareName)
+Square& Board::stringToSquare(string& squareName)
 {
     int i =  squareName[0] - 'A';
     int j =  squareName[1] - '1';
@@ -235,7 +234,7 @@ bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
 /**
 * @brief Does a move, deleting piece if eaten
 */
-void Board::move(Square srcSquare, Square dstSquare)
+void Board::move(Square& srcSquare, Square& dstSquare)
 {
     lastPieceMoved = srcSquare.getPiece()->isHasMoved();
     setLastDistination(&dstSquare);
@@ -299,7 +298,7 @@ bool Board::isCheck(piece_color playerToCheck){
 * @brief Return true if player (PlayerToCheck) is in check after move
  *       Should be called only if a move is otherwise legal
 */
-bool Board::isCheck (Square src, Square dst, piece_color playerToCheck)
+bool Board::isCheck (Square& src, Square& dst, piece_color playerToCheck)
 {
     bool retVal = false;
 
