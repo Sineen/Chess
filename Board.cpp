@@ -206,7 +206,7 @@ bool Board::largeCastle(piece_color PlayerToCheck)
 Square& Board::stringToSquare(string squareName)
 {
     int i =  squareName[0] - 'A';
-    int j =  squareName[1] - '0';
+    int j =  squareName[1] - '1';
     return squares[i][j];
 }
 
