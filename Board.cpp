@@ -83,7 +83,7 @@ void Board::printBoard()
             cout << BEGIN_LINE << pieceColor << ";" << backGround << "m" << pieceCodes << " " << END_LINE;
         }
 		// print the number of the check in the last on the line  and goes to a new line
-        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m " << i <<" "<< END_LINE << endl;
+        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m " << i + 1 <<" "<< END_LINE << endl;
     }
     cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << FIRST_LINE << END_LINE << endl; // print last ABCDGH
 
