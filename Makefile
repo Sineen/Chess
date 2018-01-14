@@ -13,7 +13,7 @@ all: Game
 
 Game: $(OBJECTS)
 	$(CXX) $(FLAGS) -c Game.cpp -o Game.o
-	$(CXX) $(FLAGS) $(OBJECTS) Game.o -o ex2
+	$(CXX) $(FLAGS) $(OBJECTS) Game.o -o ex2.exe
 
 Game.o: Game.cpp Game.h enums.h
 	$(CXX) $(FLAGS) -c Game.cpp
