@@ -135,9 +135,6 @@ unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 }
 
 
-
-
-
 /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
 */
