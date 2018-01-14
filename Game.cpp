@@ -52,8 +52,10 @@ void Game::switchPlayer()
     if ( curPlayer == white )
     {
         curPlayer = black;
+    }else{
+        curPlayer = white;
     }
-    curPlayer = white;
+
 }
 
 void Game::askForMove()
