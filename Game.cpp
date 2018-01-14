@@ -148,6 +148,7 @@ int Game::moveCycle()
     int status = makeMove();
     while(status == 1){
         cout <<  ILLEGAL << endl;
+        board.printBoard();
         askForMove();
         status = makeMove();
     }
