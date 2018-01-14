@@ -90,6 +90,9 @@ int Game::makeMove()
         }
     }
 
+    //get move
+    askForMove();
+
     // check if castle
     if (nextMove == "o-o"){
 
@@ -150,7 +153,6 @@ int Game::moveCycle()
     while(status == 1){
         cout <<  ILLEGAL << endl;
         board.printBoard();
-        askForMove();
         status = makeMove();
     }
     if(status == 100){
