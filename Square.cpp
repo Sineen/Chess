@@ -67,3 +67,10 @@ bool Square::compareSquareTo(const Square& square1) const
 	}
 	return false;
 }
+
+Square::Square()
+{
+    letter = 0;
+    number = 0;
+}
+

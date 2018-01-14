@@ -4,7 +4,11 @@
 
 #ifndef CPP_SQUARE_H
 #define CPP_SQUARE_H
-#include "Piece.h"
+//#include "Piece.h"
+#include <cstdint>
+#include <functional>
+#include "enums.h"
+class Piece;
 
 //#define SQUARE_SET Square , squareHasher , squareComparator
 
@@ -18,6 +22,7 @@ private:
 
 public:
 
+    Square();
     /**
     * @brief Contructor.
     */

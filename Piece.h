@@ -8,7 +8,8 @@
 #include <map>
 #include <set>
 #include "Square.h"
-#include "Board.h"
+#include "enums.h"
+//#include "Board.h"
 #define QUEEN "\u265B"
 #define KING "\u265A"
 #define BISHOP "\u265D"
@@ -16,15 +17,8 @@
 #define ROOK "\u265C"
 #define PAWN "\u265F"
 
-enum piece_type
-{
-    queen, king, bishop, knight, rook, pawn
-};
+class Board;
 
-enum piece_color
-{
-    black, white
-};
 
 
 class Piece
@@ -43,7 +37,7 @@ private:
   * @brief returns the squares on diagonals from piece.
   *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
   */
-	std::unordered_set<Square , squareHasher , squareComparator> _getBishop(){}
+	std::unordered_set<Square , squareHasher , squareComparator> _getBishop();
 
 	/**
 	 * @brief returns the squares on Rows from piece.

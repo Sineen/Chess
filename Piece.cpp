@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include "Piece.h"
+#include "Board.h"
 using namespace std;
 
 
@@ -20,22 +21,22 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getBishop()
 	unordered_set<Square , squareHasher , squareComparator> squares;
 
     // do NE
-    for (int i = square->getNumber(), j = square->getLetter(); i < 8, j < 8; ++i, ++j){
+    for (int i = square->getNumber(), j = square->getLetter(); i < 8 && j < 8; ++i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SE
-    for (int i = square->getNumber(), j = square->getLetter(); i >= 0, j < 8; --i, ++j){
+    for (int i = square->getNumber(), j = square->getLetter(); i >= 0 && j < 8; --i, ++j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do SW
-    for (int i = square->getNumber(), j = square->getLetter(); i >= 0, j >= 0; --i, --j){
+    for (int i = square->getNumber(), j = square->getLetter(); i >= 0 && j >= 0; --i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
     // do NW
-    for (int i = square->getNumber(), j = square->getLetter(); i < 8, j >= 0; ++i, --j){
+    for (int i = square->getNumber(), j = square->getLetter(); i < 8 && j >= 0; ++i, --j){
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
@@ -98,7 +99,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
         // if E diagonal exists and is occupied by enemy, add it
         if(j<7){
             if(!board->squares[ahead][j+1].isEmpty()){
-                if(!board->squares[ahead][j+1].getPiece()->color != color){
+                if(board->squares[ahead][j+1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j+1]);
                 }
 
@@ -109,7 +110,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
         // if W diagonal exists and is occupied by enemy, add it
         if(j>0){
             if(!board->squares[ahead][j-1].isEmpty()){
-                if(!board->squares[ahead][j-1].getPiece()->color != color){
+                if(board->squares[ahead][j-1].getPiece()->color != color){
                     squares.insert(board->squares[i+1][j-1]);
                 }
             }
@@ -163,8 +164,8 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getQueen()
     unordered_set<Square , squareHasher , squareComparator> squares;
     unordered_set<Square , squareHasher , squareComparator> rowPlaces = _getRook();
     unordered_set<Square , squareHasher , squareComparator> diagPlaces = _getBishop();
-    set_union(rowPlaces.begin(),rowPlaces.end(),diagPlaces.begin(),
-              diagPlaces.end(), squares.end());
+    squares.insert(rowPlaces.begin(), rowPlaces.end());
+    squares.insert(diagPlaces.begin(), diagPlaces.end());
 
     return squares;
 }

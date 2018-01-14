@@ -8,6 +8,7 @@
 #include <map>
 #include "Square.h"
 #include "Piece.h"
+#include "enums.h"
 //maybe add 'm' after all background colors and add ';' after all text
 #define ZERO_TEXT "0"
 #define WHITE_TEXT "37"
@@ -15,7 +16,7 @@
 #define GREEN_BACKGROUND "42"
 #define BLUE_BACKGROUND "46"
 #define RED_BACKGROUND "41"
-#define FIRST_LINE "  ABCDEFGH  "
+#define FIRST_LINE "  A B C D E F G H  "
 #define BEGIN_LINE "\33["
 #define END_LINE "\33[0m"
 

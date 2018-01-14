@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <unordered_set>
 #include "Board.h"
+#include "enums.h"
 
 using namespace std;
 
@@ -61,10 +62,10 @@ void Board::printBoard()
     string backGround;
     string pieceColor = ZERO_TEXT;
 	string pieceCodes = " ";
-    for (int i = 8; i > 0 ; --i) // becasue we print from top to bottom so we need the last  line in the array
+    for (int i = 7; i >= 0 ; --i) // becasue we print from top to bottom so we need the last  line in the array
     {
 		// prints thenumber in the beging of the line
-        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << i <<" "<< END_LINE ;
+        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << i + 1 <<" "<< END_LINE ;
         for (int j = 0; j < 8 ; ++j)
         {
             backGround = squares[i][j].getColor() == black ? GREEN_BACKGROUND : BLUE_BACKGROUND;

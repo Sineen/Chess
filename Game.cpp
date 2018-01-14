@@ -70,7 +70,7 @@ void Game::win()
 
 int Game::makeMove()
 {
-    piece_color otherPlayer = (curPlayer==white)? black: white;
+//    piece_color otherPlayer = (curPlayer==white)? black: white;
 
     // if in check
     if(board.isCheck(curPlayer)){
@@ -162,7 +162,7 @@ int main()
 
     game.playGame();
 
-    delete game;
+//    delete game;
 
     return 0;
 
