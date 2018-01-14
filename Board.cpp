@@ -288,7 +288,7 @@ void Board::UnMove ()
 bool Board::isCheck(piece_color playerToCheck){
 
     piece_color  enemyColor = (playerToCheck==white)? black: white;
-    int kI=0,kJ=0;
+    int kI=0,kJ=0, quit=0;
     bool retVal = false;
 
     // get enemy moves
@@ -304,11 +304,15 @@ bool Board::isCheck(piece_color playerToCheck){
                 (squares[i][j].getPiece()->getType() == king )){
                 kI=i;
                 kJ=j;
+                quit=1;
+                break;
             }
+
         }
+        if(quit==1) break;
     }
 
-    // check if player king is reachaBle
+    // check if player king is reachable
     if (enemyDestinations.find(squares[kI][kJ]) != enemyDestinations.end()) retVal = true;
 
     return retVal;
