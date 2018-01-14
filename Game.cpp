@@ -9,7 +9,7 @@
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
 #define CHECK "\33[37;41mCheck!\33[0m"
-#define ILLEGAL "illegal move"
+#define ILLEGAL "\33[37;41millegal move\33[0m"
 #define WIN "won!"
 
 using namespace std;
@@ -70,49 +70,26 @@ void Game::win()
 
 int Game::makeMove()
 {
-    int quit = 0;
     piece_color otherPlayer = (curPlayer==white)? black: white;
 
     // if in check
     if(board.isCheck(curPlayer)){
 
+        // see if checkmate
+        bool isCheckmate = seeIfCheckmate();
 
-        // get pieces
-		unordered_set<Square , squareHasher , squareComparator> myPieces = board.returnPlayerPices(curPlayer);
-
-        // get moves for each
-        for(Square each :myPieces)
-        {
-
-            // get legal destinations for the Piece
-            unordered_set<Square , squareHasher , squareComparator> legalDests = each.getPiece()->getSquaresCouldMove();
-            // get the square for the piece
-//            Square& piecesSquare = each;
-
-            // check all of the dests to see if they get us out of check
-            for(Square possibleDest : legalDests ){
-                if (! board.isCheck(each, possibleDest, curPlayer)){
-                    quit = 1;
-                    break;
-                }
-
-            }
-            if (quit == 1) break;
-        }
-
-        if (quit == 0){
+        if (isCheckmate){
             switchPlayer();
             win();
             return 100;
+        }else{
+            // there are good moves
+            // announce check! and continue
+            cout  << CHECK << endl;
         }
-
-        // there are good moves
-        // announce check! and continue
-        cout  << CHECK << endl;
-
     }
 
-
+    // check if castle
     if (nextMove == "o-o"){
 
         if (!board.smallCastle(curPlayer)){
@@ -189,4 +166,33 @@ int main()
 
     return 0;
 
+}
+
+bool Game::seeIfCheckmate()
+{
+///checged
+
+    // get pieces
+    unordered_set<Square, squareHasher, squareComparator> myPieces = board.returnPlayerPices(curPlayer);
+
+    // get moves for each
+    for(Square each :myPieces)
+    {
+
+        // get legal destinations for the Piece
+        unordered_set<Square , squareHasher , squareComparator> legalDests = each.getPiece()->getSquaresCouldMove();
+        // get the square for the piece
+//        Square& *piecesSquare = each.getSquare();
+
+        // check all of the dests to see if they get us out of check
+        for(Square possibleDest : legalDests )
+        {
+            if (!board.isCheck(each, possibleDest, curPlayer))
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
 }

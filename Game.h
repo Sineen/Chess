@@ -28,6 +28,8 @@ private:
 
     int moveCycle();
 
+    bool seeIfCheckmate();
+
 public:
     Board board;
 
