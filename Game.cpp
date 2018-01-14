@@ -110,41 +110,41 @@ int Game::makeMove()
 
     }
 
+
     if (nextMove == "o-o"){
-        if (!board.CanSmallCastle(curPlayer)){
+
+        if (!board.smallCastle(curPlayer)){
             return 1;
         }
-        // save original positions
-        // todo small castle (using move() -  with swap))
-
+        return 0;
 
     }else if(nextMove == "o-o-o"){
-        if (!board.CanLargeCastle(curPlayer)){
+
+        if (!board.largeCastle(curPlayer)){
             return 1;
         }
-        // save original positions
-        //todo large castle (using move() -no  swap))
+        return 0;
 
+    }else{
+        //otherwise this is a regular, 4-char move
+        string srcStr = nextMove.substr(0,1);
+        string dstStr = nextMove.substr(2,3);
+
+        Square src = board.stringToSquare(srcStr);
+        Square dst = board.stringToSquare(dstStr);
+
+        if(!board.isLegal(src,dst,curPlayer)) return 1;
+
+
+        // else move is legal movement - we must make sure it does not lead to check!
+        if (board.isCheck(src,dst,curPlayer)){
+            return 1;
+        }
+
+        //do move
+        board.move(src, dst);
     }
 
-
-    //otherwise this is a regular, 4-char move
-    string srcStr = nextMove.substr(0,1);
-    string dstStr = nextMove.substr(2,3);
-
-    Square src = board.stringToSquare(srcStr);
-    Square dst = board.stringToSquare(dstStr);
-
-    if(!board.isLegal(src,dst,curPlayer)) return 1;
-
-
-    // else move is legal movement - we must make sure it does not lead to check!
-    if (board.isCheck(src,dst,curPlayer)){
-        return 1;
-    }
-
-    //do move
-    board.Move(src,dst);
 
     // were done.
     return 0;

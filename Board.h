@@ -51,7 +51,7 @@ public:
     * @brief Try to perform a move
     * @return 0 if move successful, 1 if illegal
     */
-    void Move (Square srcSquare, Square dstSquare);
+    void move(Square srcSquare, Square dstSquare);
 
     /**
     * @brief Try to perform a move
@@ -90,12 +90,12 @@ public:
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle
 */
-    bool CanSmallCastle (piece_color PlayerToCheck);
+    bool smallCastle(piece_color PlayerToCheck);
 
     /**
     * @brief Return true if player (PlayerToCheck) can perform a large castle
     */
-    bool CanLargeCastle (piece_color PlayerToCheck);
+    bool largeCastle(piece_color PlayerToCheck);
 
     void setLastSource(Square *lastSource);
 
