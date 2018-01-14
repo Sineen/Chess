@@ -1,6 +1,6 @@
 
 CXX = g++
-OBJECTS = Game.o Board.o Piece.o Square.o
+OBJECTS = Board.o Piece.o Square.o
 FLAGS = -Wextra -Wall -Wvla -std=c++17 -pthread -g -DNDEBUG
 TARFILES1 = enums.h Game.cpp Game.h Board.cpp Board.h Piece.cpp Piece.h Square.cpp Square.h
 TARFILES2 = Makefile
