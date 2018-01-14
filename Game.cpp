@@ -72,22 +72,22 @@ int Game::makeMove()
 {
 //    piece_color otherPlayer = (curPlayer==white)? black: white;
 
-//    // if in check
-//    if(board.isCheck(curPlayer)){
-//
-//        // see if checkmate
-//        bool isCheckmate = seeIfCheckmate();
-//
-//        if (isCheckmate){
-//            switchPlayer();
-//            win();
-//            return 100;
-//        }else{
-//            // there are good moves
-//            // announce check! and continue
-//            cout  << CHECK << endl;
-//        }
-//    }
+    // if in check
+    if(board.isCheck(curPlayer)){
+
+        // see if checkmate
+        bool isCheckmate = seeIfCheckmate();
+
+        if (isCheckmate){
+            switchPlayer();
+            win();
+            return 100;
+        }else{
+            // there are good moves
+            // announce check! and continue
+            cout  << CHECK << endl;
+        }
+    }
 
     // check if castle
     if (nextMove == "o-o"){
