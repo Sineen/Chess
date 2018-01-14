@@ -72,22 +72,22 @@ int Game::makeMove()
 {
 //    piece_color otherPlayer = (curPlayer==white)? black: white;
 
-    // if in check
-    if(board.isCheck(curPlayer)){
-
-        // see if checkmate
-        bool isCheckmate = seeIfCheckmate();
-
-        if (isCheckmate){
-            switchPlayer();
-            win();
-            return 100;
-        }else{
-            // there are good moves
-            // announce check! and continue
-            cout  << CHECK << endl;
-        }
-    }
+//    // if in check
+//    if(board.isCheck(curPlayer)){
+//
+//        // see if checkmate
+//        bool isCheckmate = seeIfCheckmate();
+//
+//        if (isCheckmate){
+//            switchPlayer();
+//            win();
+//            return 100;
+//        }else{
+//            // there are good moves
+//            // announce check! and continue
+//            cout  << CHECK << endl;
+//        }
+//    }
 
     // check if castle
     if (nextMove == "o-o"){
@@ -106,7 +106,7 @@ int Game::makeMove()
 
     }else{
         //otherwise this is a regular, 4-char move
-        string srcStr = nextMove.substr(0,1);
+        string srcStr = nextMove.substr(0,2);
         string dstStr = nextMove.substr(2,3);
 
         Square src = board.stringToSquare(srcStr);
@@ -148,6 +148,7 @@ int Game::moveCycle()
     int status = makeMove();
     while(status == 1){
         cout <<  ILLEGAL << endl;
+        askForMove();
         status = makeMove();
     }
     if(status == 100){

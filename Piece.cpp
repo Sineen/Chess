@@ -40,7 +40,6 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getBishop()
         if (addAndCheckStop(squares, i, j) == 1){break;}
     }
 
-	//todo add if it hasn ot moved yet it can be switched between it and the king caselling
     return squares;
 }
 
@@ -73,7 +72,6 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getRook()
 
 unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
 {
-	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
 
 	unordered_set<Square , squareHasher , squareComparator> squares;
     int i = square->getNumber(), j = square->getLetter();
