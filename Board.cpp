@@ -113,10 +113,13 @@ unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerPices
 	unordered_set<Square , squareHasher , squareComparator> piecesOnBoard = unordered_set<Square , squareHasher , squareComparator>();
 	for (auto &square : squares)
 	{
-		if(square->getPiece()->getColor() == playerColor)
-		{
-			piecesOnBoard.insert(*(square));
-		}
+        if (!square->isEmpty())
+        {
+		    if(square->getPiece()->getColor() == playerColor)
+		    {
+			    piecesOnBoard.insert(*square);
+		    }
+        }
 	}
 	return piecesOnBoard;
 }
