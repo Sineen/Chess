@@ -12,12 +12,14 @@ Square::Square(int number, int letter)
     this-> piece = nullptr;
     this->isEmptty = true;
     this->color = ((letter%2==0 && number%2==0) || (letter%2!=0 && number%2!=0) ) ? black: white;
+    //TODO WHY Square is black or white  not green or blue ?????
 }
 
 void Square::setPiece(Piece *piece)
 {
     this->piece = piece;
     isEmptty = false;
+
 }
 
 Piece* Square::getPiece()

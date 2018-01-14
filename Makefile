@@ -15,16 +15,16 @@ Game: $(OBJECTS)
 	$(CXX) $(FLAGS) -c Game.cpp -o Game.o
 	$(CXX) $(FLAGS) $(OBJECTS) Game.o -o ex2
 
-Game.o: Game.cpp Game.h
+Game.o: Game.cpp Game.h enums.h
 	$(CXX) $(FLAGS) -c Game.cpp
 
-Board.o: Board.cpp Board.h
+Board.o: Board.cpp Board.h enums.h
 	$(CXX) $(FLAGS) -c Board.cpp
 
-Piece.o: Piece.cpp Piece.h
+Piece.o: Piece.cpp Piece.h enums.h
 	$(CXX) $(FLAGS) -c Piece.cpp
 
-Square.o: Square.cpp Square.h
+Square.o: Square.cpp Square.h enums.h
 	$(CXX) $(FLAGS) -c Square.cpp
 
 

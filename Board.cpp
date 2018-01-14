@@ -7,7 +7,6 @@
 #include <algorithm>
 #include <unordered_set>
 #include "Board.h"
-#include "enums.h"
 
 using namespace std;
 
@@ -110,7 +109,7 @@ string Board::pieceColorCode(piece_color color)
 */
 unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerPices(piece_color playerColor)
 {
-	unordered_set<Square , squareHasher , squareComparator> piecesOnBoard = unordered_set<Square , squareHasher , squareComparator>();
+	unordered_set<Square , squareHasher , squareComparator> piecesOnBoard;
 	for (auto &squarsRow : squares)
 	{
         for(auto & square : squarsRow)
@@ -133,14 +132,19 @@ unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerPices
 */
 unordered_set<Square , squareHasher , squareComparator> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
+    // the one we return with all the squares player can move to
 	unordered_set<Square , squareHasher , squareComparator> squaresCanBeLandedOn;
+    // all the pieces left for a played on teh board
 	unordered_set<Square , squareHasher , squareComparator> piecesPlayedHas = returnPlayerPices(playerColor);
+
 	unordered_set<Square , squareHasher , squareComparator> temp;
 	for(Square piece : piecesPlayedHas)
 	{
 		temp = piece.getPiece()->getSquaresCouldMove();
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
+        temp.clear();
 	}
+    /// have a map for all pieces has 0 if not there and 1 if there just find in board instead itirate ?? maybe??
     return squaresCanBeLandedOn;
 }
 
@@ -250,14 +254,17 @@ void Board::move(Square& srcSquare, Square& dstSquare)
     if(!dstSquare.isEmpty())
     {
         dstSquare.deletePiece();
+        squares[dstSquare.getNumber()][dstSquare.getLetter()].deletePiece();
     }
+    squares[dstSquare.getNumber()][dstSquare.getLetter()].setPiece(srcSquare.getPiece());
     dstSquare.setPiece(srcSquare.getPiece());
     dstSquare.getPiece()->setSquare(&dstSquare);
+    squares[dstSquare.getNumber()][dstSquare.getLetter()].getPiece()->setSquare(&squares[dstSquare.getNumber()][dstSquare.getLetter()]);
     if (!lastPieceMoved)
     {
-        dstSquare.getPiece()->setHasMoved(true);
+        squares[dstSquare.getNumber()][dstSquare.getLetter()].getPiece()->setHasMoved(true);
     }
-
+    squares[srcSquare.getNumber()][srcSquare.getLetter()].deletePiece();
     // pawn promotion
     Piece *movingPiece = dstSquare.getPiece();
 
@@ -297,16 +304,16 @@ bool Board::isCheck(piece_color playerToCheck){
     unordered_set<Square , squareHasher , squareComparator> enemyDestinations = returnPlayerLegalMoves(enemyColor);
 
     //find player king
-    for (int i = 0; i <8 ; ++i)
+    for (int i = 0; i < 8 ; ++i)
     {
-        for (int j = 0; j <8 ; ++j)
+        for (int j = 0; j < 8 ; ++j)
         {
             if ((!squares[i][j].isEmpty()) &&
                 (squares[i][j].getColor() == playerToCheck) &&
                 (squares[i][j].getPiece()->getType() == king )){
-                kI=i;
-                kJ=j;
-                quit=1;
+                kI = i;
+                kJ = j;
+                quit = 1;
                 break;
             }
 
@@ -327,7 +334,7 @@ bool Board::isCheck(piece_color playerToCheck){
 */
 bool Board::isCheck (Square& src, Square& dst, piece_color playerToCheck)
 {
-    bool retVal = false;
+    bool retVal;
 
     //do move
     move(src, dst);
