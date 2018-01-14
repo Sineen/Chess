@@ -214,6 +214,7 @@ Square& Board::stringToSquare(string& squareName)
     int i =  squareName[1] - '1';
     int j =  squareName[0] - 'A';
     return squares[i][j];
+    //[rows][colums] == [number][letter]
 }
 
 
