@@ -52,8 +52,6 @@ Board::Board()
 
 
 
-
-
 /**
  * print the board
  */
@@ -138,9 +136,6 @@ unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
 }
-
-
-
 
 
 /**

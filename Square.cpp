@@ -56,7 +56,7 @@ int Square::getNumber() const
     return number;
 }
 
-bool Square::compareSquareTo(Square square1)
+bool Square::compareSquareTo(const Square& square1) const
 {
 	if ( square1.getLetter() == this->getLetter())
 	{

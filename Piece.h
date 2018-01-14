@@ -129,7 +129,7 @@ public:
 
 	/**
 	 *
-	 * @return a set of squares that a piece can move too
+	 * @return a set of squares that a specific piece can move too
 	 */
 	unordered_set<Square> getSquaresCouldMove();
 

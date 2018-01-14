@@ -49,12 +49,28 @@ public:
 
     int getNumber() const;
 
-	bool compareSquareTo(Square square2);
+	bool compareSquareTo(const Square& square1) const;
 
 };
 
+struct squareHasher
+{
+    std::size_t operator()(const Square & square) const
+    {
+        return (hash<int>()(square.getLetter()) ^ (hash<int>()(square.getNumber()) << 1)) >> 1;
+    }
+};
 
 
+// Custom comparator that compares square
+struct squareComparator
+{
+    bool
+    operator()(const Square & square1, const Square & square2) const
+    {
+        return square1.compareSquareTo(square2);
+    }
+};
 
 
 #endif //CPP_SQUARE_H
