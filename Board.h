@@ -35,7 +35,7 @@ private:
     * @brief Gives a set of all of a player's legal Dest
      *      ( used to check if enemy can kill my king)
     */
-    unordered_set<SQUARE_SET> returnPlayerLegalMoves(piece_color playerColor);
+    unordered_set<Square , squareHasher , squareComparator> returnPlayerLegalMoves(piece_color playerColor);
 
 public:
 
@@ -85,7 +85,7 @@ public:
     /**
     * @brief Gives a set of all of a player's pieces
     */
-    unordered_set<SQUARE_SET> returnPlayerPices(piece_color playerColor);
+    unordered_set<Square , squareHasher , squareComparator> returnPlayerPices(piece_color playerColor);
 
     /**
 * @brief Return true if player (PlayerToCheck) can perform a small castle

@@ -15,9 +15,9 @@ Piece::Piece(Board *board, Square *square, piece_type type, piece_color color)
 }
 
 
-unordered_set<SQUARE_SET> Piece::_getBishop()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getBishop()
 {
-	unordered_set<SQUARE_SET> squares;
+	unordered_set<Square , squareHasher , squareComparator> squares;
 
     // do NE
     for (int i = square->getNumber(), j = square->getLetter(); i < 8, j < 8; ++i, ++j){
@@ -43,9 +43,9 @@ unordered_set<SQUARE_SET> Piece::_getBishop()
     return squares;
 }
 
-unordered_set<SQUARE_SET> Piece::_getRook()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getRook()
 {
-    unordered_set<SQUARE_SET> squares;
+    unordered_set<Square , squareHasher , squareComparator> squares;
 
     // do N
     for (int i = square->getNumber(), j = square->getLetter(); i < 8; ++i){
@@ -70,10 +70,10 @@ unordered_set<SQUARE_SET> Piece::_getRook()
     return squares;
 }
 
-unordered_set<SQUARE_SET> Piece::_getPawns()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
 {
 	//todo fix direction and add if it has not moved ( first move it can go two steps to the front
-	unordered_set<SQUARE_SET> squares;
+	unordered_set<Square , squareHasher , squareComparator> squares;
     int i = square->getNumber(), j = square->getLetter();
 
     // if there is a row in front of pawn
@@ -108,9 +108,9 @@ unordered_set<SQUARE_SET> Piece::_getPawns()
     return squares;
 }
 
-unordered_set<SQUARE_SET> Piece::_getKnights()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getKnights()
 {
-    unordered_set<SQUARE_SET> squares;
+    unordered_set<Square , squareHasher , squareComparator> squares;
 
     // i change 2, j change 1
     for (int i = -2; i <= 2 ; i += 4)
@@ -132,9 +132,9 @@ unordered_set<SQUARE_SET> Piece::_getKnights()
     return squares;
 }
 
-unordered_set<SQUARE_SET> Piece::_getKing()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getKing()
 {
-    unordered_set<SQUARE_SET> squares;
+    unordered_set<Square , squareHasher , squareComparator> squares;
     for (int i = -1; i <= 1 ; ++i)
     {
         for (int j = -1; j <= 1 ; ++j)
@@ -147,18 +147,18 @@ unordered_set<SQUARE_SET> Piece::_getKing()
 
 }
 
-unordered_set<SQUARE_SET> Piece::_getQueen()
+unordered_set<Square , squareHasher , squareComparator> Piece::_getQueen()
 {
-    unordered_set<SQUARE_SET> squares;
-    unordered_set<SQUARE_SET> rowPlaces = _getRook();
-    unordered_set<SQUARE_SET> diagPlaces = _getBishop();
+    unordered_set<Square , squareHasher , squareComparator> squares;
+    unordered_set<Square , squareHasher , squareComparator> rowPlaces = _getRook();
+    unordered_set<Square , squareHasher , squareComparator> diagPlaces = _getBishop();
     set_union(rowPlaces.begin(),rowPlaces.end(),diagPlaces.begin(),
               diagPlaces.end(), squares.end());
 
     return squares;
 }
 
-int  Piece::addAndCheckStop(unordered_set<SQUARE_SET> &squares, int i, int j){
+int  Piece::addAndCheckStop(unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j){
     if (board->squares[i][j].isEmpty()){
         squares.insert(board->squares[i][j]);
         return 0;
@@ -173,7 +173,7 @@ int  Piece::addAndCheckStop(unordered_set<SQUARE_SET> &squares, int i, int j){
     }
 }
 
-void  Piece::checkAndAddIj(unordered_set<SQUARE_SET> &squares, int i, int j){
+void  Piece::checkAndAddIj(unordered_set<Square , squareHasher , squareComparator> &squares, int i, int j){
     if (i >= 0 && i < 8 && j >= 0 && j <8 )
     {
         if (board->squares[i][j].isEmpty()){
@@ -261,9 +261,9 @@ string Piece::pieceCode()
 	}
 }
 
-unordered_set<SQUARE_SET> Piece::getSquaresCouldMove()
+unordered_set<Square , squareHasher , squareComparator> Piece::getSquaresCouldMove()
 {
-	unordered_set<SQUARE_SET> squareCouldMoveTo;
+	unordered_set<Square , squareHasher , squareComparator> squareCouldMoveTo;
 	switch (getType())
 	{
 		case queen:

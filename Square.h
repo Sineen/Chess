@@ -4,10 +4,9 @@
 
 #ifndef CPP_SQUARE_H
 #define CPP_SQUARE_H
-
-#define SQUARE_SET Square , squareHasher , squareComparator
-
 #include "Piece.h"
+
+//#define SQUARE_SET Square , squareHasher , squareComparator
 
 class Square
 {
@@ -58,7 +57,7 @@ struct squareHasher
 {
     std::size_t operator()(const Square & square) const
     {
-        return (hash<int>()(square.getLetter()) ^ (hash<int>()(square.getNumber()) << 1)) >> 1;
+        return (hash<int>()(square.getLetter()) ^ (hash<int>()(square.getNumber()))) ;
     }
 };
 

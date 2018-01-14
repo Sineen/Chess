@@ -78,14 +78,14 @@ int Game::makeMove()
 
 
         // get pieces
-		unordered_set<SQUARE_SET> myPieces = board.returnPlayerPices(curPlayer);
+		unordered_set<Square , squareHasher , squareComparator> myPieces = board.returnPlayerPices(curPlayer);
 
         // get moves for each
         for(Square each :myPieces)
         {
 
             // get legal destinations for the Piece
-            unordered_set<SQUARE_SET> legalDests = each.getPiece()->getSquaresCouldMove();
+            unordered_set<Square , squareHasher , squareComparator> legalDests = each.getPiece()->getSquaresCouldMove();
             // get the square for the piece
 //            Square& piecesSquare = each;
 
