@@ -4,7 +4,6 @@
 
 #include <unordered_set>
 #include "Game.h"
-#include "Board.h"
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
@@ -67,7 +66,6 @@ void Game::askForMove()
 
 void Game::win()
 {
-    board.printBoard();
     cout << getName(curPlayer)<< WIN << endl;
 }
 
@@ -91,9 +89,6 @@ int Game::makeMove()
             cout  << CHECK << endl;
         }
     }
-
-    //get move
-    askForMove();
 
     // check if castle
     if (nextMove == "o-o"){
@@ -149,11 +144,13 @@ void Game::playGame()
 
 int Game::moveCycle()
 {
+    askForMove();
 
     int status = makeMove();
     while(status == 1){
         cout <<  ILLEGAL << endl;
         board.printBoard();
+        askForMove();
         status = makeMove();
     }
     if(status == 100){
@@ -189,7 +186,7 @@ bool Game::seeIfCheckmate()
         // check all of the dests to see if they get us out of check
         for(Square possibleDest : legalDests )
         {
-            if (!board.isCheck(each, possibleDest, curPlayer))
+            if (!board.isCheck(each, possibleDest, curPlayer)) //CHECK
             {
                 return false;
             }
