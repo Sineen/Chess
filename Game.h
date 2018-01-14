@@ -7,10 +7,26 @@
 
 #include <iostream>
 #include "Board.h"
-#define W_TXT_RD_BK   "37;41"
 
 class Game
 {
+private:
+
+    std::string whitePlayer;
+    std::string blackPlayer;
+    std::string nextMove;
+    piece_color curPlayer;
+
+    /**
+     * @brief Gets a move from the user.
+     */
+    void askForMove();
+
+    int makeMove();
+
+    void switchPlayer();
+
+    int moveCycle();
 
 public:
     Board board;
@@ -41,24 +57,6 @@ public:
     std::string setName(piece_color color);
 
     void win();
-
-private:
-
-    std::string whitePlayer;
-    std::string blackPlayer;
-    std::string nextMove;
-    piece_color curPlayer;
-
-    /**
-     * @brief Gets a move from the user.
-     */
-    void askForMove();
-
-    int makeMove();
-
-    void switchPlayer();
-
-    int moveCycle();
 
 };
 

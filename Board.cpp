@@ -8,9 +8,6 @@
 #include <unordered_set>
 #include "Board.h"
 
-#define FIRST_LINE "\33[0;0m  ABCDEFGH  \33[0m"
-
-
 /**
 * @brief Contructor. - sets the board with pieces
 */
@@ -62,7 +59,7 @@ Board::Board()
  */
 void Board::printBoard()
 {
-    cout << FIRST_LINE << endl;
+    cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << FIRST_LINE << END_LINE << endl; // print first line ABCDGH
     string backGround;
     string pieceColor = ZERO_TEXT;
 	string pieceCodes = " ";
@@ -70,7 +67,7 @@ void Board::printBoard()
 		// todo ask josh how he filled it in
     {
 		// prints thenumber in the beging of the line
-        cout << "\33[0;0m" << i <<" \33[0m" ;
+        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << i <<" "<< END_LINE ;
         for (int j = 0; j < 8 ; ++j)
         {
             backGround = squares[i][j].getColor() == black ? GREEN_BACKGROUND : BLUE_BACKGROUND;
@@ -85,11 +82,13 @@ void Board::printBoard()
 				pieceCodes = squares[i][j].getPiece()->pieceCode();
             }
 			//print the stringToSquare
-            cout << "\33[" << pieceColor << ";" << backGround << "m" << pieceCodes << " \33[0m";
+            cout << BEGIN_LINE << pieceColor << ";" << backGround << "m" << pieceCodes << " " << END_LINE;
         }
 		// print the number of the check in the last on the line  and goes to a new line
-        cout << "\33[0;0m " << i <<"\33[0m" << endl;
+        cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m " << i <<" "<< END_LINE << endl;
     }
+    cout << BEGIN_LINE << ZERO_TEXT << ";"<< ZERO_TEXT << "m" << FIRST_LINE << END_LINE << endl; // print last ABCDGH
+
 }
 
 string Board::pieceColorCode(piece_color color)

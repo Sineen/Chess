@@ -8,16 +8,35 @@
 #include <map>
 #include "Square.h"
 #include "Piece.h"
+//maybe add 'm' after all background colors and add ';' after all text
 #define ZERO_TEXT "0"
 #define WHITE_TEXT "37"
 #define BLACK_TEXT "30"
 #define GREEN_BACKGROUND "42"
 #define BLUE_BACKGROUND "46"
 #define RED_BACKGROUND "41"
+#define FIRST_LINE "  ABCDEFGH  "
+#define BEGIN_LINE "\33["
+#define END_LINE "\33[0m"
 
 
 class Board
 {
+private:
+
+    Square* lastSource;
+    Square* lastDistination;
+    bool undidMove = false;
+    bool lastPieceMoved;
+
+    string pieceColorCode(piece_color color);
+
+    /**
+    * @brief Gives a set of all of a player's legal Dest
+     *      ( used to check if enemy can kill my king)
+    */
+    unordered_set<Square> returnPlayerLegalMoves(piece_color playerColor);
+
 public:
 
     Square squares[8][8];
@@ -93,21 +112,7 @@ public:
     bool isLegal(Square& src, Square& dst, piece_color playerToCheck);
 
 
-private:
-
-    Square* lastSource;
-    Square* lastDistination;
-    bool undidMove = false;
-    bool lastPieceMoved;
-
-    string pieceColorCode(piece_color color);
-
-    /**
-    * @brief Gives a set of all of a player's legal Dest
-     *      ( used to check if enemy can kill my king)
-    */
-    unordered_set<Square> returnPlayerLegalMoves(piece_color playerColor);
-
+//    void printLine(string backgroundColor, string textColor, string text);  maybe do this
 
 };
 

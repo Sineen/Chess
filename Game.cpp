@@ -4,10 +4,11 @@
 
 #include <unordered_set>
 #include "Game.h"
+#include "Board.h"
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
-#define ILLEGAL "Illegal Move!" // todo change to requestef
+#define ILLEGAL "\33[37;41millegal move\33[0m" // todo change to requestef
 #define WIN "won!"
 
 using namespace std;
@@ -167,7 +168,7 @@ int Game::moveCycle()
 
     int status = makeMove();
     while(status == 1){
-        cout << "\33[" << W_TXT_RD_BK  << ILLEGAL << " \33[0m\n";
+        cout << BEGIN_LINE << WHITE_TEXT << ";" << RED_BACKGROUND << ILLEGAL << END_LINE << endl;
         status = makeMove();
     }
     if(status == 100){

@@ -33,45 +33,13 @@ enum piece_color
 class Piece
 {
 
-public:
-
-
-    /**
-    * @brief Contructor.
-    */
-    Piece(Board* board, Square* square,piece_type type, piece_color color);
-
-	piece_type getType() const;
-
-	piece_color getColor() const;
-
-	Square* getSquare() const;
-
-	Board* getBoard() const;
-
-	bool isHasMoved() const;
-
-	void setType(piece_type type);
-
-	void setColor(piece_color color);
-
-	void setSquare(Square *square);
-
-	void setBoard(Board *board);
-
-	void setHasMoved(bool hasMoved);
-
-	string pieceCode();
-
-	unordered_set<Square> getSquaresCouldMove();
-
 
 private:
 	piece_type type;
 	piece_color color;
-    Square* square;
-    Board* board;
-    bool hasMoved;
+	Square* square;
+	Board* board;
+	bool hasMoved;
 //    int letter, number;  // board locations of piece be filed with the original spot
 
 	/**
@@ -110,6 +78,60 @@ private:
 
 	void checkAndAddIj(unordered_set<Square> &squares, int i, int j);
 
+
+public:
+
+    /**
+    * @brief Contructor.
+    */
+    Piece(Board* board, Square* square,piece_type type, piece_color color);
+
+	/**
+	 * getters
+	 * @return
+	 */
+	piece_type getType() const;
+
+	piece_color getColor() const;
+
+	Square* getSquare() const;
+
+	Board* getBoard() const;
+
+	/**
+	 *
+	 * @return true if the move has not been moved at all
+	 */
+	bool isHasMoved() const;
+
+	/**
+	 * setteres
+	 */
+	void setType(piece_type type);
+
+	void setColor(piece_color color);
+
+	void setSquare(Square *square);
+
+	void setBoard(Board *board);
+
+	/**
+	 * if the piece moved and hasmoved was false make it true
+	 * @param hasMoved
+	 */
+	void setHasMoved(bool hasMoved);
+
+	/**
+	 *
+	 * @return the string with  breakin the beging for each piece it returnes the number that would print the picture of that piece
+	 */
+	string pieceCode();
+
+	/**
+	 *
+	 * @return a set of squares that a piece can move too
+	 */
+	unordered_set<Square> getSquaresCouldMove();
 
 };
 
