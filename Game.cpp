@@ -147,7 +147,6 @@ void Game::playGame()
 
 int Game::moveCycle()
 {
-    askForMove();
 
     int status = makeMove();
     while(status == 1){
