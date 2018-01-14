@@ -82,7 +82,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
 
         //add space if empty
         if (board->squares[ahead][j].isEmpty()){
-            squares.insert(board->squares[i][j]);
+            squares.insert(board->squares[ahead][j]);
 
             //if unmoved, check additional row
             if(!hasMoved){
@@ -95,7 +95,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
                     // add space if empty
                     if (board->squares[ahead][j].isEmpty())
                     {
-                        squares.insert(board->squares[i][j]);
+                        squares.insert(board->squares[ahead][j]);
                     }
                 }
             }
@@ -105,7 +105,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
         if(j<7){
             if(!board->squares[ahead][j+1].isEmpty()){
                 if(board->squares[ahead][j+1].getPiece()->color != color){
-                    squares.insert(board->squares[i+1][j+1]);
+                    squares.insert(board->squares[ahead][j+1]);
                 }
             }
         }
@@ -114,7 +114,7 @@ unordered_set<Square , squareHasher , squareComparator> Piece::_getPawns()
         if(j>0){
             if(!board->squares[ahead][j-1].isEmpty()){
                 if(board->squares[ahead][j-1].getPiece()->color != color){
-                    squares.insert(board->squares[i+1][j-1]);
+                    squares.insert(board->squares[ahead][j-1]);
                 }
             }
         }
