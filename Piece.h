@@ -46,37 +46,37 @@ private:
   * @brief returns the squares on diagonals from piece.
   *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
   */
-	unordered_set<Square> _getBishop(){}
+	unordered_set<SQUARE_SET> _getBishop(){}
 
 	/**
 	 * @brief returns the squares on Rows from piece.
 	 *        stops at board edge, or at friendly piece (not incl.) or enemy piece (incl.)
 	 */
-	unordered_set<Square> _getRook();
+	unordered_set<SQUARE_SET> _getRook();
 
 	/**
 	 * @brief returns the squares available to pawns.
 	 */
-	unordered_set<Square> _getPawns();
+	unordered_set<SQUARE_SET> _getPawns();
 
 	/**
 	 * @brief returns the squares available to Knights.
 	 */
-	unordered_set<Square> _getKnights();
+	unordered_set<SQUARE_SET> _getKnights();
 
 	/**
 	 * @brief returns the squares available to King.
 	 */
-	unordered_set<Square> _getKing();
+	unordered_set<SQUARE_SET> _getKing();
 
 	/**
 	 * @brief returns the squares available to Queen.
 	 */
-	unordered_set<Square> _getQueen();
+	unordered_set<SQUARE_SET> _getQueen();
 
-	int addAndCheckStop(unordered_set<Square> &squares, int i, int j);
+	int addAndCheckStop(unordered_set<SQUARE_SET> &squares, int i, int j);
 
-	void checkAndAddIj(unordered_set<Square> &squares, int i, int j);
+	void checkAndAddIj(unordered_set<SQUARE_SET> &squares, int i, int j);
 
 
 public:
@@ -131,7 +131,7 @@ public:
 	 *
 	 * @return a set of squares that a specific piece can move too
 	 */
-	unordered_set<Square> getSquaresCouldMove();
+	unordered_set<SQUARE_SET> getSquaresCouldMove();
 
 };
 

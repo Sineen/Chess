@@ -106,14 +106,14 @@ string Board::pieceColorCode(piece_color color)
 /**
 * @brief Gives a set of all of a sqaures that contains the  player's pieces
 */
-unordered_set<Piece> Board::returnPlayerPices(piece_color playerColor)
+unordered_set<SQUARE_SET> Board::returnPlayerPices(piece_color playerColor)
 {
-	unordered_set<Piece> piecesOnBoard = unordered_set<Piece>();
+	unordered_set<SQUARE_SET> piecesOnBoard = unordered_set<SQUARE_SET>();
 	for (auto &square : squares)
 	{
 		if(square->getPiece()->getColor() == playerColor)
 		{
-			piecesOnBoard.insert(*(square->getPiece()));
+			piecesOnBoard.insert(*(square));
 		}
 	}
 	return piecesOnBoard;
@@ -123,14 +123,14 @@ unordered_set<Piece> Board::returnPlayerPices(piece_color playerColor)
 * @brief Gives a set of all of a player's legal Dest
  *      ( used to check if enemy can kill my king)
 */
-unordered_set<Square> Board::returnPlayerLegalMoves(piece_color playerColor)
+unordered_set<SQUARE_SET> Board::returnPlayerLegalMoves(piece_color playerColor)
 {
-	unordered_set<Square> squaresCanBeLandedOn = unordered_set<Square>();
-	unordered_set<Piece> piecesPlayedHas = Board::returnPlayerPices(playerColor);
-	unordered_set<Square> temp = unordered_set<Square>();
-	for(Piece piece : piecesPlayedHas)
+	unordered_set<SQUARE_SET> squaresCanBeLandedOn;
+	unordered_set<SQUARE_SET> piecesPlayedHas = returnPlayerPices(playerColor);
+	unordered_set<SQUARE_SET> temp;
+	for(Square piece : piecesPlayedHas)
 	{
-		temp = piece.getSquaresCouldMove();
+		temp = piece.getPiece()->getSquaresCouldMove();
 		squaresCanBeLandedOn.insert(temp.begin(), temp.end());
 	}
 }
@@ -153,7 +153,7 @@ bool Board::smallCastle(piece_color PlayerToCheck)
     }
 
     //make sure all pices and spaces are not threaened
-    unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
+    unordered_set<SQUARE_SET> threatened = returnPlayerLegalMoves(enemyColor);
     for(int col: spaces){
         if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
     }
@@ -184,7 +184,7 @@ bool Board::largeCastle(piece_color PlayerToCheck)
     }
 
     //make sure all pices and spaces are not threaened
-    unordered_set<Square> threatened = returnPlayerLegalMoves(enemyColor);
+    unordered_set<SQUARE_SET> threatened = returnPlayerLegalMoves(enemyColor);
     for(int col: spaces){
         if ( !(threatened.find(squares[row][col]) == threatened.end()) ){ return false;}
     }
@@ -223,7 +223,7 @@ bool Board::isLegal(Square& src, Square& dst, piece_color playerToCheck)
     if (src.getPiece()->getColor() != playerToCheck) return false;
 
     //make a list of places
-    unordered_set<Square> legalDestinations = playingPiece->getSquaresCouldMove();
+    unordered_set<SQUARE_SET> legalDestinations = playingPiece->getSquaresCouldMove();
 
     //if illegal
     return !(legalDestinations.find(dst) == legalDestinations.end());
@@ -269,7 +269,7 @@ bool Board::isCheck(piece_color playerToCheck){
     bool retVal = false;
 
     // get enemy moves
-    unordered_set<Square> enemyDestinations = returnPlayerLegalMoves(enemyColor);
+    unordered_set<SQUARE_SET> enemyDestinations = returnPlayerLegalMoves(enemyColor);
 
     //find player king
     for (int i = 0; i <8 ; ++i)

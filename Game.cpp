@@ -8,7 +8,7 @@
 #define MAKE_MOVE ": Please enter your move:"
 #define WHITE_NAME "Enter white player name:"
 #define BLACK_NAME "Enter black player name:"
-#define ILLEGAL "\33[37;41millegal move\33[0m" // todo change to requestef
+#define ILLEGAL "illegal move"
 #define WIN "won!"
 
 using namespace std;
@@ -77,20 +77,20 @@ int Game::makeMove()
 
 
         // get pieces
-		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer);
+		unordered_set<SQUARE_SET> myPieces = board.returnPlayerPices(curPlayer);
 
         // get moves for each
-        for(Piece each :myPieces)
+        for(Square each :myPieces)
         {
 
             // get legal destinations for the Piece
-            unordered_set<Square> legalDests = each.getSquaresCouldMove();
+            unordered_set<SQUARE_SET> legalDests = each.getPiece()->getSquaresCouldMove();
             // get the square for the piece
-            Square& *piecesSquare = each.getSquare();
+//            Square& piecesSquare = each;
 
             // check all of the dests to see if they get us out of check
             for(Square possibleDest : legalDests ){
-                if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){
+                if (! board.isCheck(each, possibleDest, curPlayer)){
                     quit = 1;
                     break;
                 }
