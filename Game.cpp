@@ -70,49 +70,26 @@ void Game::win()
 
 int Game::makeMove()
 {
-    int quit = 0;
     piece_color otherPlayer = (curPlayer==white)? black: white;
 
     // if in check
     if(board.isCheck(curPlayer)){
 
+        // see if checkmate
+        bool isCheckmate = seeIfCheckmate();
 
-        // get pieces
-		unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer);
-
-        // get moves for each
-        for(Piece each :myPieces)
-        {
-
-            // get legal destinations for the Piece
-            unordered_set<Square> legalDests = each.getSquaresCouldMove();
-            // get the square for the piece
-            Square& *piecesSquare = each.getSquare();
-
-            // check all of the dests to see if they get us out of check
-            for(Square possibleDest : legalDests ){
-                if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){
-                    quit = 1;
-                    break;
-                }
-
-            }
-            if (quit == 1) break;
-        }
-
-        if (quit == 0){
+        if (isCheckmate){
             switchPlayer();
             win();
             return 100;
+        }else{
+            // there are good moves
+            // announce check! and continue
+            cout  << CHECK << endl;
         }
-
-        // there are good moves
-        // announce check! and continue
-        cout  << CHECK << endl;
-
     }
 
-
+    // check if castle
     if (nextMove == "o-o"){
 
         if (!board.smallCastle(curPlayer)){
@@ -189,4 +166,29 @@ int main()
 
     return 0;
 
+}
+
+bool Game::seeIfCheckmate(){
+
+    // get pieces
+    unordered_set<Piece> myPieces = board.returnPlayerPices(curPlayer);
+
+    // get moves for each
+    for(Piece each :myPieces)
+    {
+
+        // get legal destinations for the Piece
+        unordered_set<Square> legalDests = each.getSquaresCouldMove();
+        // get the square for the piece
+        Square& *piecesSquare = each.getSquare();
+
+        // check all of the dests to see if they get us out of check
+        for(Square possibleDest : legalDests ){
+            if (! board.isCheck(*piecesSquare,possibleDest,curPlayer)){
+                return false;
+            }
+        }
+    }
+
+    return true;
 }
